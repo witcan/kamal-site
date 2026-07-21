@@ -1,30 +1,29 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/role.yml in the Kamal repository.
-title: Roles
+title: 角色
 ---
 
-# Roles
+# 角色
 
-Roles are used to configure different types of servers in the deployment.
-The most common use for this is to run web servers and job servers.
+角色用于配置部署中不同类型的服务器。
+最常见的用途是区分 Web 服务器和任务（job）服务器。
 
-Kamal expects there to be a `web` role, unless you set a different `primary_role`
-in the root configuration.
+除非在根配置中设置了不同的 `primary_role`，Kamal 默认期望存在 `web` 角色。
 
-## [Role configuration](#role-configuration)
+## [角色配置](#role-configuration)
 
-Roles are specified under the servers key:
+角色写在 `servers` 键下：
 
 ```yaml
 servers:
 ```
 
-## [Simple role configuration](#simple-role-configuration)
+## [简单角色配置](#simple-role-configuration)
 
-This can be a list of hosts if you don't need custom configuration for the role.
+若不需要为角色做自定义配置，可以直接写成主机列表。
 
-You can set tags on the hosts for custom env variables (see [Environment variables](../environment-variables)):
+你可以在主机上设置标签以使用自定义环境变量（参见[环境变量](../environment-variables)）：
 
 ```yaml
   web:
@@ -33,19 +32,17 @@ You can set tags on the hosts for custom env variables (see [Environment variabl
     - 172.1.0.2: [ experiment1, experiment2 ]
 ```
 
-## [Custom role configuration](#custom-role-configuration)
+## [自定义角色配置](#custom-role-configuration)
 
-When there are other options to set, the list of hosts goes under the `hosts` key.
+当还有其他选项需要设置时，主机列表写在 `hosts` 键下。
 
-By default, only the primary role uses a proxy.
+默认只有主角色（primary role）会使用代理。
 
-For other roles, you can set it to `proxy: true` to enable it and inherit the root proxy
-configuration or provide a map of options to override the root configuration.
+对其他角色，可设置 `proxy: true` 启用代理并继承根级 proxy 配置，或提供选项映射以覆盖根配置。
 
-For the primary role, you can set `proxy: false` to disable the proxy.
+对主角色，可设置 `proxy: false` 禁用代理。
 
-You can also set a custom `cmd` to run in the container and overwrite other settings
-from the root configuration.
+你也可以设置自定义的 `cmd` 在容器中运行，并覆盖根配置中的其他设置。
 
 ```yaml
   workers:

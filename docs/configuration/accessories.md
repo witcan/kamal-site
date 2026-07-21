@@ -1,70 +1,70 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/accessory.yml in the Kamal repository.
-title: Accessories
+title: 附属服务
 ---
 
-# Accessories
+# 附属服务
 
-Accessories can be booted on a single host, a list of hosts, or on specific roles.
-The hosts do not need to be defined in the Kamal servers configuration.
+附属服务（accessories）可以在单台主机、一组主机或特定角色上启动。
+这些主机不必出现在 Kamal 的 servers 配置中。
 
-Accessories are managed separately from the main service — they are not updated
-when you deploy, and they do not have zero-downtime deployments.
+附属服务与主服务分开管理——部署时不会更新它们，
+也没有零停机部署。
 
-Run `kamal accessory boot <accessory>` to boot an accessory.
-See `kamal accessory --help` for more information.
+运行 `kamal accessory boot <accessory>` 可启动附属服务。
+更多信息见 `kamal accessory --help`。
 
-## [Configuring accessories](#configuring-accessories)
+## [配置附属服务](#configuring-accessories)
 
-First, define the accessory in the `accessories`:
+首先在 `accessories` 中定义附属服务：
 
 ```yaml
 accessories:
   mysql:
 ```
 
-## [Service name](#service-name)
+## [服务名称](#service-name)
 
-This is used in the service label and defaults to `<service>-<accessory>`,
-where `<service>` is the main service name from the root configuration:
+用于服务标签，默认为 `<service>-<accessory>`，
+其中 `<service>` 是根配置中的主服务名：
 
 ```yaml
     service: mysql
 ```
 
-## [Image](#image)
+## [镜像](#image)
 
-The Docker image to use.
-Prefix it with its server when using root level registry different from Docker Hub.
-Define registry directly or via anchors when it differs from root level registry.
+要使用的 Docker 镜像。
+当根级镜像仓库不是 Docker Hub 时，请加上服务器前缀。
+当与根级镜像仓库不同时，可直接定义 registry，或通过锚点定义。
 
 ```yaml
     image: mysql:8.0
 ```
 
-## [Registry](#registry)
+## [镜像仓库](#registry)
 
-By default accessories use Docker Hub registry.
-You can specify different registry per accessory with this option.
-Don't prefix image with this registry server.
-Use anchors if you need to set the same specific registry for several accessories.
+默认情况下，附属服务使用 Docker Hub。
+可通过此选项为每个附属服务指定不同的镜像仓库。
+不要在 image 前再加该仓库服务器前缀。
+若多个附属服务需要同一特定仓库，可使用锚点。
 
 ```yml
 registry:
   <<: *specific-registry
 ```
 
-See [Docker Registry](../docker-registry) for more information:
+更多信息见 [Docker 镜像仓库](../docker-registry)：
 
 ```yaml
     registry:
       ...
 ```
 
-## [Accessory hosts](#accessory-hosts)
+## [附属服务主机](#accessory-hosts)
 
-Specify one of `host`, `hosts`, `role`, `roles`, `tag` or `tags`:
+指定 `host`、`hosts`、`role`、`roles`、`tag` 或 `tags` 之一：
 
 ```yaml
     host: mysql-db1
@@ -80,33 +80,33 @@ Specify one of `host`, `hosts`, `role`, `roles`, `tag` or `tags`:
       - reader
 ```
 
-## [Custom command](#custom-command)
+## [自定义命令](#custom-command)
 
-You can set a custom command to run in the container if you do not want to use the default:
+若不使用默认命令，可设置在容器中运行的自定义命令：
 
 ```yaml
     cmd: "bin/mysqld"
 ```
 
-## [Port mappings](#port-mappings)
+## [端口映射](#port-mappings)
 
-See [https://docs.docker.com/network/](https://docs.docker.com/network/), and
-especially note the warning about the security implications of exposing ports publicly.
+见 [https://docs.docker.com/network/](https://docs.docker.com/network/)，
+并特别注意关于公开暴露端口的安全风险警告。
 
 ```yaml
     port: "127.0.0.1:3306:3306"
 ```
 
-## [Labels](#labels)
+## [标签](#labels)
 
 ```yaml
     labels:
       app: myapp
 ```
 
-## [Options](#options)
+## [选项](#options)
 
-These are passed to the Docker run command in the form `--<name> <value>`:
+会以 `--<name> <value>` 的形式传给 Docker run 命令：
 
 ```yaml
     options:
@@ -114,24 +114,24 @@ These are passed to the Docker run command in the form `--<name> <value>`:
       cpus: 2
 ```
 
-## [Environment variables](#environment-variables)
+## [环境变量](#environment-variables)
 
-See [Environment variables](../environment-variables) for more information:
+更多信息见[环境变量](../environment-variables)：
 
 ```yaml
     env:
       ...
 ```
 
-## [Copying files](#copying-files)
+## [复制文件](#copying-files)
 
-You can specify files to mount into the container.
+你可以指定要挂载进容器的文件。
 
-They will be uploaded from the local repo to the host and then mounted.
-ERB files will be evaluated before being copied.
+它们会从本地仓库上传到主机，再挂载进容器。
+ERB 文件在复制前会先求值。
 
-You can use the string format: `local:remote` or `local:remote:options`
-where the options can be `ro` for read-only or `z`/`Z` for SELinux labels
+可使用字符串格式：`local:remote` 或 `local:remote:options`，
+其中 options 可以是 `ro`（只读）或 `z`/`Z`（SELinux 标签）。
 
 ```yaml
     files:
@@ -141,9 +141,9 @@ where the options can be `ro` for read-only or `z`/`Z` for SELinux labels
 ```
 
 
-Or you can use the hash format for custom mode and ownership.
+也可使用哈希格式设置自定义 mode 与 ownership。
 
-Note: Setting `owner` requires root access:
+注意：设置 `owner` 需要 root 权限：
 
 ```yaml
     files:
@@ -158,13 +158,12 @@ Note: Setting `owner` requires root access:
         options: "Z"
 ```
 
-## [Directories](#directories)
+## [目录](#directories)
 
-You can specify directories to mount into the container. They will be created on the host
-before being mounted.
+你可以指定要挂载进容器的目录。挂载前会在主机上创建这些目录。
 
-You can use the string format: `local:remote` or `local:remote:options`
-where the options can be `ro` for read-only or `z`/`Z` for SELinux labels
+可使用字符串格式：`local:remote` 或 `local:remote:options`，
+其中 options 可以是 `ro`（只读）或 `z`/`Z`（SELinux 标签）。
 
 ```yaml
     directories:
@@ -173,9 +172,9 @@ where the options can be `ro` for read-only or `z`/`Z` for SELinux labels
 ```
 
 
-Or you can use the hash format for custom mode and ownership.
+也可使用哈希格式设置自定义 mode 与 ownership。
 
-Note: Setting `owner` requires root access:
+注意：设置 `owner` 需要 root 权限：
 
 ```yaml
     directories:
@@ -189,29 +188,29 @@ Note: Setting `owner` requires root access:
         options: "z"
 ```
 
-## [Volumes](#volumes)
+## [卷](#volumes)
 
-Any other volumes to mount, in addition to the files and directories.
-They are not created or copied before mounting:
+除文件和目录外，其他要挂载的卷。
+挂载前不会创建或复制它们：
 
 ```yaml
     volumes:
       - /path/to/mysql-logs:/var/log/mysql
 ```
 
-## [Network](#network)
+## [网络](#network)
 
-The network the accessory will be attached to.
+附属服务将加入的网络。
 
-Defaults to kamal:
+默认为 kamal：
 
 ```yaml
     network: custom
 ```
 
-## [Proxy](#proxy)
+## [代理](#proxy)
 
-You can run your accessory behind the Kamal proxy. See [Proxy](../proxy) for more information
+可以在 Kamal 代理后运行附属服务。更多信息见[代理](../proxy)。
 
 ```yaml
     proxy:

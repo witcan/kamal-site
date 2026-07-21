@@ -1,14 +1,14 @@
 ---
-title: Builder examples
+title: 构建器示例
 ---
 
-# Builder examples
+# 构建器示例
 
-## [Using remote builder for single-arch](#using-remote-builder-for-single-arch)
+## [单架构使用远程构建器](#using-remote-builder-for-single-arch)
 
-If you're developing on ARM64 (like Apple Silicon), but you want to deploy on AMD64 (x86 64-bit), by default, Kamal will set up a local buildx configuration that does this through QEMU emulation. However, this can be quite slow, especially on the first build.
+如果你在 ARM64（例如 Apple Silicon）上开发，但要部署到 AMD64（x86 64 位），默认情况下 Kamal 会配置本地 buildx，通过 QEMU 模拟完成构建。不过这可能相当慢，尤其是第一次构建。
 
-If you want to speed up this process by using a remote AMD64 host to natively build the AMD64 part of the image, you can set a remote builder:
+若想用远程 AMD64 主机原生构建 AMD64 部分以加快速度，可以设置远程构建器：
 
 ```yaml
 builder:
@@ -16,15 +16,15 @@ builder:
   remote: ssh://root@192.168.0.1
 ```
 
-Kamal will use the remote to build when deploying from an ARM64 machine, or build locally when deploying from an AMD64 machine.
+从 ARM64 机器部署时，Kamal 会使用远程构建；从 AMD64 机器部署时则在本地构建。
 
-**Note:** You must have Docker running on the remote host being used as a builder. This instance should only be shared for builds using the same registry and credentials.
+**注意：** 作为构建器的远程主机上必须运行 Docker。该实例应仅与使用相同镜像仓库和凭证的构建共享。
 
-## [Using remote builder for multi-arch](#using-remote-builder-for-native-multi-arch)
+## [多架构使用远程构建器](#using-remote-builder-for-native-multi-arch)
 
-You can also build a multi-arch image. If a remote is set, Kamal will build the architecture matching your deployment server locally and the other architecture remotely.
+你也可以构建多架构镜像。若设置了 remote，Kamal 会在本地构建与部署服务器匹配的架构，在远程构建另一架构。
 
-So if you're developing on ARM64 (like Apple Silicon), it will build the ARM64 architecture locally and the AMD64 architecture remotely.
+因此若你在 ARM64（例如 Apple Silicon）上开发，会在本地构建 ARM64 架构，在远程构建 AMD64 架构。
 
 ```yaml
 builder:
@@ -34,66 +34,66 @@ builder:
   remote: ssh://root@192.168.0.1
 ```
 
-## [Using local builder for single-arch](#using-local-builder-for-single-arch)
+## [单架构使用本地构建器](#using-local-builder-for-single-arch)
 
-If you always want to build locally for a single architecture, Kamal will build the image using a local buildx instance.
+若始终只为单一架构本地构建，Kamal 会使用本地 buildx 实例构建镜像。
 
 ```yaml
 builder:
   arch: amd64
 ```
 
-## [Using a different Dockerfile or context when building](#using-a-different-dockerfile-or-context-when-building)
+## [构建时使用不同的 Dockerfile 或上下文](#using-a-different-dockerfile-or-context-when-building)
 
-If you need to pass a different Dockerfile or context to the build command (e.g., if you're using a monorepo or you have different Dockerfiles), you can do so in the builder options:
+若需要向构建命令传入不同的 Dockerfile 或上下文（例如 monorepo，或有多份 Dockerfile），可在 builder 选项中设置：
 
 ```yaml
-# Use a different Dockerfile
+# 使用不同的 Dockerfile
 builder:
   dockerfile: Dockerfile.xyz
 
-# Set context
+# 设置上下文
 builder:
   context: ".."
 
-# Set Dockerfile and context
+# 同时设置 Dockerfile 和上下文
 builder:
   dockerfile: "../Dockerfile.xyz"
   context: ".."
 ```
 
-## [Using multistage builder cache](#using-multistage-builder-cache)
+## [使用多阶段构建缓存](#using-multistage-builder-cache)
 
-Docker multistage build cache can speed up your builds. Currently, Kamal only supports using the GHA cache or the Registry cache:
+Docker 多阶段构建缓存可以加快构建。目前 Kamal 仅支持使用 GHA 缓存或 Registry 缓存：
 
 ```yaml
-# Using GHA cache
+# 使用 GHA 缓存
 builder:
   cache:
     type: gha
 
-# Using Registry cache
+# 使用 Registry 缓存
 builder:
   cache:
     type: registry
 
-# Using Registry cache with different cache image
+# 使用 Registry 缓存并指定不同的缓存镜像
 builder:
   cache:
     type: registry
-    # default image name is <image>-build-cache
+    # 默认镜像名为 <image>-build-cache
     image: application-cache-image
 
-# Using Registry cache with additional cache-to options
+# 使用 Registry 缓存并附加 cache-to 选项
 builder:
   cache:
     type: registry
     options: mode=max,image-manifest=true,oci-mediatypes=true
 ```
 
-## [Building without a Dockerfile locally](#building-without-a-dockerfile-locally)
+## [在本地不使用 Dockerfile 进行构建](#building-without-a-dockerfile-locally)
 
-Your application image can also be built using [cloud native buildpacks](https://buildpacks.io/) instead of using a `Dockerfile` and the default `docker build` process. This example uses Heroku's [ruby](https://github.com/heroku/heroku-buildpack-ruby) and [Procfile](https://github.com/heroku/buildpacks-procfile) buildpacks to build your final image. 
+应用镜像也可以用 [cloud native buildpacks](https://buildpacks.io/) 构建，而不使用 `Dockerfile` 和默认的 `docker build` 流程。下面的例子使用 Heroku 的 [ruby](https://github.com/heroku/heroku-buildpack-ruby) 和 [Procfile](https://github.com/heroku/buildpacks-procfile) buildpack 构建最终镜像。
 
 ``` yaml
   pack:
@@ -103,13 +103,13 @@ Your application image can also be built using [cloud native buildpacks](https:/
       - heroku/procfile
 ```
 
-To provide any additional customizations you can add a [project descriptor file](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/) (`project.toml`) in the root of your application.
+如需更多自定义，可在应用根目录添加[项目描述文件](https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/)（`project.toml`）。
 
-### [GHA cache configuration](#gha-cache-configuration)
+### [GHA 缓存配置](#gha-cache-configuration)
 
-To make it work on the GitHub action workflow, you need to set up the buildx and expose [authentication configuration for the cache](https://docs.docker.com/build/cache/backends/gha/#authentication).
+要在 GitHub Action 工作流中生效，需要设置 buildx 并暴露[缓存的认证配置](https://docs.docker.com/build/cache/backends/gha/#authentication)。
 
-Example setup (in .github/workflows/sample-ci.yml):
+示例设置（在 .github/workflows/sample-ci.yml 中）：
 
 ```yaml
 - name: Set up Docker Buildx for cache
@@ -119,13 +119,13 @@ Example setup (in .github/workflows/sample-ci.yml):
   uses: crazy-max/ghaction-github-runtime@v3
 ```
 
-When set up correctly, you should see the cache entry/entries on the GHA workflow actions cache section.
+配置正确后，应能在 GHA 工作流的 actions 缓存区域看到缓存条目。
 
-For further insights into build cache optimization, check out the documentation on Docker's official website: https://docs.docker.com/build/cache/.
+关于构建缓存优化的更多说明，见 Docker 官网文档：https://docs.docker.com/build/cache/。
 
-## [Using build secrets for new images](#using-build-secrets-for-new-images)
+## [为新镜像使用构建密钥](#using-build-secrets-for-new-images)
 
-Some images need a secret passed in during build time, like a GITHUB_TOKEN, to give access to private gem repositories. This can be done by setting the secret in `.kamal/secrets`, then referencing it in the builder configuration:
+有些镜像在构建时需要传入密钥，例如 GITHUB_TOKEN，以访问私有 gem 仓库。可在 `.kamal/secrets` 中设置密钥，再在 builder 配置中引用：
 
 ```bash
 # .kamal/secrets
@@ -141,7 +141,7 @@ builder:
     - GITHUB_TOKEN
 ```
 
-This build secret can then be referenced in the Dockerfile:
+然后在 Dockerfile 中引用该构建密钥：
 
 ```dockerfile
 # Copy Gemfiles
@@ -154,9 +154,9 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
   rm -rf /usr/local/bundle/cache
 ```
 
-## [Configuring build args for new images](#configuring-build-args-for-new-images)
+## [为新镜像配置构建参数](#configuring-build-args-for-new-images)
 
-Build arguments that aren't secret can also be configured:
+非敏感的构建参数也可以配置：
 
 ```yaml
 builder:
@@ -164,7 +164,7 @@ builder:
     RUBY_VERSION: 3.2.0
 ```
 
-This build argument can then be used in the Dockerfile:
+然后在 Dockerfile 中使用该构建参数：
 
 ```dockerfile
 ARG RUBY_VERSION

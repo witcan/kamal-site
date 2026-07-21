@@ -1,10 +1,10 @@
 ---
-title: Cron
+title: 定时任务
 ---
 
-# Cron
+# 定时任务
 
-You can use a specific container to run your Cron jobs:
+你可以使用专门的容器来运行 Cron 任务：
 
 ```yaml
 servers:
@@ -15,4 +15,4 @@ servers:
       bash -c "(env && cat config/crontab) | crontab - && cron -f"
 ```
 
-This assumes that the Cron settings are stored in `config/crontab`. Cron does not automatically propagate environment variables, the example above copies them into the crontab.
+该示例假定 Cron 配置保存在 `config/crontab` 中。Cron 不会自动继承环境变量，上面的例子会把它们复制进 crontab。

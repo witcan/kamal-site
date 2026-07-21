@@ -1,15 +1,15 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/ssh.yml in the Kamal repository.
-title: SSH configuration
+title: SSH 配置
 ---
 
-# SSH configuration
+# SSH 配置
 
-Kamal uses SSH to connect and run commands on your hosts.
-By default, it will attempt to connect to the root user on port 22.
+Kamal 通过 SSH 连接主机并在其上执行命令。
+默认会尝试以 root 用户连接 22 端口。
 
-If you are using a non-root user, you may need to bootstrap your servers manually before using them with Kamal. On Ubuntu, you’d do:
+如果使用非 root 用户，可能需要在搭配 Kamal 使用前手动初始化服务器。在 Ubuntu 上可以这样做：
 
 ```shell
 sudo apt update
@@ -18,106 +18,104 @@ sudo apt install -y docker.io curl git
 sudo usermod -a -G docker app
 ```
 
-## [SSH options](#ssh-options)
+## [SSH 选项](#ssh-options)
 
-The options are specified under the ssh key in the configuration file.
+这些选项写在配置文件的 `ssh` 键下。
 
 ```yaml
 ssh:
 ```
 
-## [The SSH user](#the-ssh-user)
+## [SSH 用户](#the-ssh-user)
 
-Defaults to `root`:
+默认为 `root`：
 
 ```yaml
   user: app
 ```
 
-## [The SSH port](#the-ssh-port)
+## [SSH 端口](#the-ssh-port)
 
-Defaults to 22:
+默认为 22：
 
 ```yaml
   port: "2222"
 ```
 
-## [Proxy host](#proxy-host)
+## [代理主机](#proxy-host)
 
-Specified in the form <host> or <user>@<host>:
+格式为 &lt;host&gt; 或 &lt;user&gt;@&lt;host&gt;：
 
 ```yaml
   proxy: root@proxy-host
 ```
 
-## [Proxy command](#proxy-command)
+## [代理命令](#proxy-command)
 
-A custom proxy command, required for older versions of SSH:
+自定义代理命令，旧版 SSH 可能需要：
 
 ```yaml
   proxy_command: "ssh -W %h:%p user@proxy"
 ```
 
-## [Log level](#log-level)
+## [日志级别](#log-level)
 
-Defaults to `fatal`. Set this to `debug` if you are having SSH connection issues.
+默认为 `fatal`。若遇到 SSH 连接问题，可设为 `debug`。
 
 ```yaml
   log_level: debug
 ```
 
-## [Keys only](#keys-only)
+## [仅使用密钥](#keys-only)
 
-Set to `true` to use only private keys from the `keys` and `key_data` parameters,
-even if ssh-agent offers more identities. This option is intended for
-situations where ssh-agent offers many different identities or you
-need to overwrite all identities and force a single one.
+设为 `true` 时，只使用 `keys` 和 `key_data` 参数中的私钥，
+即使 ssh-agent 提供了更多身份。该选项适用于
+ssh-agent 提供了多种身份，或你需要覆盖所有身份并强制使用某一个的场景。
 
 ```yaml
   keys_only: false
 ```
 
-## [Keys](#keys)
+## [密钥文件](#keys)
 
-An array of file names of private keys to use for public key
-and host-based authentication:
+用于公钥与基于主机认证的私钥文件名数组：
 
 ```yaml
   keys: [ "~/.ssh/id.pem" ]
 ```
 
-## [Key data](#key-data)
+## [密钥数据](#key-data)
 
-An array of strings, with each element of the array being a secret name.
+字符串数组，每个元素为密钥名称。
 
 ```yaml
   key_data:
     - SSH_PRIVATE_KEY
 ```
 
-You can also provide raw private key in PEM format, but this is deprecated.
+也可以直接提供 PEM 格式的原始私钥，但该方式已弃用。
 
 ```yaml
   key_data:
     - "-----BEGIN OPENSSH PRIVATE KEY----- ..."
 ```
 
-## [Config](#config)
+## [配置](#config)
 
-Set to true to load the default OpenSSH config files (~/.ssh/config,
-/etc/ssh_config), to false ignore config files, or to a file path
-(or array of paths) to load specific configuration. Defaults to true.
+设为 true 时加载默认 OpenSSH 配置文件（~/.ssh/config、
+/etc/ssh_config）；设为 false 则忽略配置文件；也可设为文件路径
+（或路径数组）以加载指定配置。默认为 true。
 
 ```yaml
   config: [ "~/.ssh/myconfig" ]
 ```
 
-## [Forward agent](#forward-agent)
+## [转发 Agent](#forward-agent)
 
-Whether to forward the local SSH agent to the remote host. Defaults to
-true (sshkit's default). Set to false when connecting through a jump
-host or tunnel that does not support agent forwarding (for example,
-Cloudflare Access for Infrastructure with SSH).
+是否将本地 SSH agent 转发到远程主机。默认为
+true（sshkit 的默认值）。通过不支持 agent 转发的跳板机或隧道
+连接时（例如 Cloudflare Access for Infrastructure 的 SSH），
+请设为 false。
 
 ```yaml
   forward_agent: false

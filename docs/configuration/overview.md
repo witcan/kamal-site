@@ -1,142 +1,141 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/configuration.yml in the Kamal repository.
-title: Kamal Configuration
+title: Kamal 配置
 ---
 
-# Kamal Configuration
+# Kamal 配置
 
-Configuration is read from the `config/deploy.yml`.
+配置从 `config/deploy.yml` 读取。
 
-## [Destinations](#destinations)
+## [目标环境（Destinations）](#destinations)
 
-When running commands, you can specify a destination with the `-d` flag,
-e.g., `kamal deploy -d staging`.
+运行命令时，可以用 `-d` 标志指定目标环境，
+例如 `kamal deploy -d staging`。
 
-In this case, the configuration will also be read from `config/deploy.staging.yml`
-and merged with the base configuration.
+此时还会从 `config/deploy.staging.yml` 读取配置，
+并与基础配置合并。
 
-## [Extensions](#extensions)
+## [扩展](#extensions)
 
-Kamal will not accept unrecognized keys in the configuration file.
+Kamal 不会接受配置文件中无法识别的键。
 
-However, you might want to declare a configuration block using YAML anchors
-and aliases to avoid repetition.
+不过，你可能希望用 YAML 锚点与别名声明配置块，
+以避免重复。
 
-You can prefix a configuration section with `x-` to indicate that it is an
-extension. Kamal will ignore the extension and not raise an error.
+可以用 `x-` 前缀标记配置段，表示这是扩展。
+Kamal 会忽略扩展，不会报错。
 
-## [The service name](#the-service-name)
+## [服务名称](#the-service-name)
 
-This is a required value. It is used as the container name prefix.
+这是必填项。用作容器名称前缀。
 
 ```yaml
 service: myapp
 ```
 
-## [The Docker image name](#the-docker-image-name)
+## [Docker 镜像名称](#the-docker-image-name)
 
-The image will be pushed to the configured registry.
+镜像会推送到已配置的镜像仓库。
 
 ```yaml
 image: my-image
 ```
 
-## [Labels](#labels)
+## [标签](#labels)
 
-Additional labels to add to the container:
+添加到容器的额外标签：
 
 ```yaml
 labels:
   my-label: my-value
 ```
 
-## [Volumes](#volumes)
+## [卷](#volumes)
 
-Additional volumes to mount into the container:
+挂载到容器的额外卷：
 
 ```yaml
 volumes:
   - /path/on/host:/path/in/container:ro
 ```
 
-## [Registry](#registry)
+## [镜像仓库](#registry)
 
-The Docker registry configuration, see [Docker Registry](../docker-registry):
+Docker 镜像仓库配置，见 [Docker 镜像仓库](../docker-registry)：
 
 ```yaml
 registry:
   ...
 ```
 
-## [Servers](#servers)
+## [服务器](#servers)
 
-The servers to deploy to, optionally with custom roles, see [Servers](../servers):
+要部署到的服务器，可选择自定义角色，见[服务器](../servers)：
 
 ```yaml
 servers:
   ...
 ```
 
-## [Environment variables](#environment-variables)
+## [环境变量](#environment-variables)
 
-See [Environment variables](../environment-variables):
+见[环境变量](../environment-variables)：
 
 ```yaml
 env:
   ...
 ```
 
-## [Asset path](#asset-path)
+## [静态资源路径](#asset-path)
 
-Used for asset bridging across deployments, default to `nil`.
+用于跨部署的资源桥接，默认为 `nil`。
 
-If there are changes to CSS or JS files, we may get requests
-for the old versions on the new container, and vice versa.
+若 CSS 或 JS 有变更，新容器上可能仍收到对旧版本资源的请求，
+反之亦然。
 
-To avoid 404s, we can specify an asset path.
-Kamal will replace that path in the container with a mapped
-volume containing both sets of files.
-This requires that file names change when the contents change
-(e.g., by including a hash of the contents in the name).
+为避免 404，可指定资源路径。
+Kamal 会用包含两套文件的映射卷替换容器中的该路径。
+这要求文件名在内容变化时也变化
+（例如在名称中包含内容哈希）。
 
-To configure this, set the path to the assets.
+配置时设置资源所在路径即可。
 
-You can also specify mount options after a colon, such as `ro` for read-only
-or `z`/`Z` for SELinux labels
+也可以在冒号后指定挂载选项，例如 `ro` 表示只读，
+或 `z`/`Z` 用于 SELinux 标签。
 
 ```yaml
 asset_path: /path/to/assets
 ```
 
-## [Hooks path](#hooks-path)
+## [钩子路径](#hooks-path)
 
-Path to hooks, defaults to `.kamal/hooks`.
-See [Hooks](/docs/hooks) for more information:
+钩子路径，默认为 `.kamal/hooks`。
+更多信息见[钩子](/docs/hooks)：
 
 ```yaml
 hooks_path: /user_home/kamal/hooks
 ```
 
-## [Hook output](#hook-output)
+## [钩子输出](#hook-output)
 
-Hook output visibility. Can be set globally or per-hook.
-CLI flags (`-v`, `-q`) override these settings.
+钩子输出的可见性。可全局设置，也可按钩子设置。
+CLI 标志（`-v`、`-q`）会覆盖这些设置。
 
-- `:quiet` - hook output is hidden
-- `:verbose` - hook output is shown
+- `:quiet` - 隐藏钩子输出
+- `:verbose` - 显示钩子输出
 
-With no setting, hook output follows CLI verbosity flags.
+未设置时，钩子输出跟随 CLI 的详细程度标志。
 
-Note: Failed hooks always show output in the error message regardless of setting.
+注意：无论设置如何，失败的钩子总会在错误信息中显示输出。
 
-Global setting for all hooks:
+全局设置（适用于所有钩子）：
 
 ```yaml
 hooks_output: :verbose
 ```
 
-Or per-hook settings:
+或按钩子设置：
 
 ```yaml
 hooks_output:
@@ -144,141 +143,141 @@ hooks_output:
   pre-build: :quiet
 ```
 
-## [Secrets path](#secrets-path)
+## [密钥路径](#secrets-path)
 
-Path to secrets, defaults to `.kamal/secrets`.
-Kamal looks for `<secrets_path>-common` first and then `<secrets_path>`.
-When using destinations, it instead looks for `<secrets_path>-common` first and then
-`<secrets_path>.<destination>`. Later files override earlier ones.
+密钥路径，默认为 `.kamal/secrets`。
+Kamal 会先查找 `<secrets_path>-common`，再查找 `<secrets_path>`。
+使用 destination 时，则先查找 `<secrets_path>-common`，再查找
+`<secrets_path>.<destination>`。后者会覆盖前者。
 
 ```yaml
 secrets_path: /user_home/kamal/secrets
 ```
 
-## [Error pages](#error-pages)
+## [错误页面](#error-pages)
 
-A directory relative to the app root to find error pages for the proxy to serve.
-Name each page after the HTTP status code it serves, e.g. 404.html, 500.html,
-502.html, 503.html, and 504.html.
+相对于应用根目录的目录，供代理提供错误页面。
+每个页面以对应的 HTTP 状态码命名，例如 404.html、500.html、
+502.html、503.html、504.html。
 
 ```yaml
 error_pages_path: public
 ```
 
-## [Require destinations](#require-destinations)
+## [要求指定目标环境](#require-destinations)
 
-Whether deployments require a destination to be specified, defaults to `false`:
+部署是否必须指定 destination，默认为 `false`：
 
 ```yaml
 require_destination: true
 ```
 
-## [Primary role](#primary-role)
+## [主角色](#primary-role)
 
-This defaults to `web`, but if you have no web role, you can change this:
+默认为 `web`；若没有 web 角色，可修改：
 
 ```yaml
 primary_role: workers
 ```
 
-## [Allowing empty roles](#allowing-empty-roles)
+## [允许空角色](#allowing-empty-roles)
 
-Whether roles with no servers are allowed. Defaults to `false`:
+是否允许没有服务器的角色。默认为 `false`：
 
 ```yaml
 allow_empty_roles: false
 ```
 
-## [Retain containers](#retain-containers)
+## [保留容器数](#retain-containers)
 
-How many old containers and images we retain, defaults to 5:
+保留多少个旧容器和镜像，默认为 5：
 
 ```yaml
 retain_containers: 3
 ```
 
-## [Minimum version](#minimum-version)
+## [最低版本](#minimum-version)
 
-The minimum version of Kamal required to deploy this configuration, defaults to `nil`:
+部署此配置所需的最低 Kamal 版本，默认为 `nil`：
 
 ```yaml
 minimum_version: 1.3.0
 ```
 
-## [Readiness delay](#readiness-delay)
+## [就绪延迟](#readiness-delay)
 
-Seconds to wait for a container to boot after it is running, default 7.
+容器运行后等待其就绪的秒数，默认 7。
 
-This only applies to containers that do not run a proxy or specify a healthcheck:
+仅适用于不使用代理、也未指定健康检查的容器：
 
 ```yaml
 readiness_delay: 4
 ```
 
-## [Deploy timeout](#deploy-timeout)
+## [部署超时](#deploy-timeout)
 
-How long to wait for a container to become ready, default 30:
+等待容器就绪的最长时间，默认 30：
 
 ```yaml
 deploy_timeout: 10
 ```
 
-## [Drain timeout](#drain-timeout)
+## [排空超时](#drain-timeout)
 
-How long to wait for a container to drain, default 30:
+等待容器排空的最长时间，默认 30：
 
 ```yaml
 drain_timeout: 10
 ```
 
-## [Stop timeout](#stop-timeout)
+## [停止超时](#stop-timeout)
 
-How long to wait for a container to stop after SIGTERM, default is
-the drain_timeout for non-proxied roles and 10s (Docker default) for proxied roles.
-Can be overridden per role:
+发送 SIGTERM 后等待容器停止的最长时间；默认值对非代理角色为
+drain_timeout，对使用代理的角色为 10 秒（Docker 默认）。
+可按角色覆盖：
 
 ```yaml
 stop_timeout: 30
 ```
 
-## [Run directory](#run-directory)
+## [运行目录](#run-directory)
 
-Directory to store kamal runtime files in on the host, default `.kamal`:
+主机上存放 kamal 运行时文件的目录，默认为 `.kamal`：
 
 ```yaml
 run_directory: /etc/kamal
 ```
 
-## [SSH options](#ssh-options)
+## [SSH 选项](#ssh-options)
 
-See [SSH](../ssh):
+见 [SSH](../ssh)：
 
 ```yaml
 ssh:
   ...
 ```
 
-## [Builder options](#builder-options)
+## [构建器选项](#builder-options)
 
-See [Builders](../builders):
+见[构建器](../builders)：
 
 ```yaml
 builder:
   ...
 ```
 
-## [Accessories](#accessories)
+## [附属服务](#accessories)
 
-Additional services to run in Docker, see [Accessories](../accessories):
+在 Docker 中运行的附加服务，见[附属服务](../accessories)：
 
 ```yaml
 accessories:
   ...
 ```
 
-## [Proxy](#proxy)
+## [代理](#proxy)
 
-Configuration for kamal-proxy, see [Proxy](../proxy):
+kamal-proxy 的配置，见[代理](../proxy)：
 
 ```yaml
 proxy:
@@ -287,43 +286,43 @@ proxy:
 
 ## [SSHKit](#sshkit)
 
-See [SSHKit](../sshkit):
+见 [SSHKit](../sshkit)：
 
 ```yaml
 sshkit:
   ...
 ```
 
-## [Boot options](#boot-options)
+## [启动选项](#boot-options)
 
-See [Booting](../booting):
+见[启动](../booting)：
 
 ```yaml
 boot:
   ...
 ```
 
-## [Logging](#logging)
+## [日志](#logging)
 
-Docker logging configuration, see [Logging](../logging):
+Docker 日志配置，见[日志](../logging)：
 
 ```yaml
 logging:
   ...
 ```
 
-## [Output](#output)
+## [输出](#output)
 
-Configure output loggers (OTel, file), see [Output](../output):
+配置输出记录器（OTel、文件），见[输出](../output)：
 
 ```yaml
 output:
   ...
 ```
 
-## [Aliases](#aliases)
+## [别名](#aliases)
 
-Alias configuration, see [Aliases](../aliases):
+别名配置，见[别名](../aliases)：
 
 ```yaml
 aliases:

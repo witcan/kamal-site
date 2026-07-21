@@ -1,35 +1,35 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/proxy.yml in the Kamal repository.
-title: Proxy
+title: 代理
 ---
 
-# Proxy
+# 代理
 
-Kamal uses [kamal-proxy](https://github.com/basecamp/kamal-proxy) to provide
-gapless deployments. It runs on ports 80 and 443 and forwards requests to the
-application container.
+Kamal 使用 [kamal-proxy](https://github.com/basecamp/kamal-proxy) 提供
+无缝部署。它监听 80 和 443 端口，并将请求转发到
+应用容器。
 
-The proxy is configured in the root configuration under `proxy`. These are
-options that are set when deploying the application, not when booting the proxy.
+代理在根配置的 `proxy` 下配置。这些选项
+在部署应用时生效，而不是在启动代理时。
 
-They are application-specific, so they are not shared when multiple applications
-run on the same proxy.
+它们是应用专属的，因此同一代理上运行多个应用时
+不会共享这些选项。
 
 
 ```yaml
 proxy:
 ```
 
-## [Hosts](#hosts)
+## [主机](#hosts)
 
-The hosts that will be used to serve the app. The proxy will only route requests
-to this host to your app.
+用于对外提供应用的主机名。代理只会把发往这些主机的请求
+路由到你的应用。
 
-If no hosts are set, then all requests will be forwarded, except for matching
-requests for other apps deployed on that server that do have a host set.
+若未设置主机，则会转发所有请求，但同服务器上其他已设置主机的
+应用的匹配请求除外。
 
-Specify one of `host` or `hosts`.
+指定 `host` 或 `hosts` 之一。
 
 ```yaml
   host: foo.example.com
@@ -38,11 +38,11 @@ Specify one of `host` or `hosts`.
     - bar.example.com
 ```
 
-## [App port](#app-port)
+## [应用端口](#app-port)
 
-The port the application container is exposed on.
+应用容器暴露的端口。
 
-Defaults to 80:
+默认为 80：
 
 ```yaml
   app_port: 3000
@@ -50,30 +50,30 @@ Defaults to 80:
 
 ## [SSL](#ssl)
 
-kamal-proxy can provide automatic HTTPS for your application via Let's Encrypt.
+kamal-proxy 可通过 Let's Encrypt 为应用提供自动 HTTPS。
 
-This requires that we are deploying to one server and the host option is set.
-The host value must point to the server we are deploying to, and port 443 must be
-open for the Let's Encrypt challenge to succeed.
+这要求只部署到一台服务器，且已设置 host 选项。
+host 的值必须指向正在部署的那台服务器，且 443 端口必须开放，
+以便 Let's Encrypt 验证成功。
 
-If you set `ssl` to `true`, `kamal-proxy` will stop forwarding headers to your app,
-unless you explicitly set `forward_headers: true`
+若将 `ssl` 设为 `true`，`kamal-proxy` 将停止向应用转发头信息，
+除非你显式设置 `forward_headers: true`。
 
-Defaults to `false`:
+默认为 `false`：
 
 ```yaml
   ssl: true
 ```
 
-## [Custom SSL certificate](#custom-ssl-certificate)
+## [自定义 SSL 证书](#custom-ssl-certificate)
 
-In some cases, using Let's Encrypt for automatic certificate management is not an
-option, for example if you are running from more than one host.
+某些情况下，使用 Let's Encrypt 自动管理证书不可行，
+例如部署在多台主机上时。
 
-Or you may already have SSL certificates issued by a different Certificate Authority (CA).
+或者你可能已有由其他证书颁发机构（CA）签发的 SSL 证书。
 
-Kamal supports loading custom SSL certificates directly from secrets. You should
-pass a hash mapping the `certificate_pem` and `private_key_pem` to the secret names.
+Kamal 支持直接从密钥加载自定义 SSL 证书。你应传入一个哈希，
+将 `certificate_pem` 和 `private_key_pem` 映射到密钥名称。
 
 ```yaml
   ssl:
@@ -81,57 +81,56 @@ pass a hash mapping the `certificate_pem` and `private_key_pem` to the secret na
     private_key_pem: PRIVATE_KEY_PEM
 ```
 
-### Notes
-- If the certificate or key is missing or invalid, deployments will fail.
-- Always handle SSL certificates and private keys securely. Avoid hard-coding them in source control.
+### 说明
+- 若证书或密钥缺失或无效，部署将失败。
+- 请始终安全处理 SSL 证书和私钥，避免硬编码进版本控制。
 
-## [SSL redirect](#ssl-redirect)
+## [SSL 重定向](#ssl-redirect)
 
-By default, kamal-proxy will redirect all HTTP requests to HTTPS when SSL is enabled.
-If you prefer that HTTP traffic is passed through to your application (along with
-HTTPS traffic), you can disable this redirect by setting `ssl_redirect: false`:
+默认情况下，启用 SSL 时 kamal-proxy 会将所有 HTTP 请求重定向到 HTTPS。
+若希望 HTTP 流量也直接转发到应用（与 HTTPS 一样），
+可设置 `ssl_redirect: false` 禁用重定向：
 
 ```yaml
   ssl_redirect: false
 ```
 
-## [Forward headers](#forward-headers)
+## [转发头](#forward-headers)
 
-Whether to forward the `X-Forwarded-For` and `X-Forwarded-Proto` headers.
+是否转发 `X-Forwarded-For` 和 `X-Forwarded-Proto` 头。
 
-If you are behind a trusted proxy, you can set this to `true` to forward the headers.
+若你位于受信任的代理之后，可设为 `true` 以转发这些头。
 
-By default, kamal-proxy will not forward the headers if the `ssl` option is set to `true`, and
-will forward them if it is set to `false`.
+默认情况下，若 `ssl` 为 `true`，kamal-proxy 不会转发这些头；
+若 `ssl` 为 `false`，则会转发。
 
 ```yaml
   forward_headers: true
 ```
 
-## [Response timeout](#response-timeout)
+## [响应超时](#response-timeout)
 
-How long to wait for requests to complete before timing out, defaults to 30 seconds:
+等待请求完成的超时时间，默认 30 秒：
 
 ```yaml
   response_timeout: 10
 ```
 
-## [Path-based routing](#path-based-routing)
+## [基于路径的路由](#path-based-routing)
 
-For applications that split their traffic to different services based on the request path,
-you can use path-based routing to mount services under different path prefixes.
-Usage sample: path_prefix: '/api'
+若应用根据请求路径把流量分到不同服务，
+可使用基于路径的路由，将服务挂载在不同路径前缀下。
+用法示例：path_prefix: '/api'
 
-You can also specify multiple paths in two ways.
+也可以用两种方式指定多个路径。
 
-When using path_prefix you can supply multiple routes separated by commas.
+使用 path_prefix 时，可用逗号分隔多条路由。
 
 ```yaml
   path_prefix: "/api,/oauth_callback"
 ```
 
-You can also specify paths as a list of paths, the configuration will be
-rolled together into a comma separated string.
+也可以把路径写成列表，配置会被合并成逗号分隔的字符串。
 
 ```yaml
   path_prefixes:
@@ -139,23 +138,23 @@ rolled together into a comma separated string.
     - "/oauth_callback"
 ```
 
-By default, the path prefix will be stripped from the request before it is forwarded upstream.
+默认情况下，转发到上游前会去掉路径前缀。
 
-So in the example above, a request to /api/users/123 will be forwarded to web-1 as /users/123.
+因此在上面的例子中，对 /api/users/123 的请求会以 /users/123 转发给 web-1。
 
-To instead forward the request with the original path (including the prefix),
-specify --strip-path-prefix=false
+若希望按原始路径（含前缀）转发，
+请指定 --strip-path-prefix=false：
 
 ```yaml
   strip_path_prefix: false
 ```
 
-## [Healthcheck](#healthcheck)
+## [健康检查](#healthcheck)
 
-When deploying, the proxy will by default hit `/up` once every second until we hit
-the deploy timeout, with a 5-second timeout for each request.
+部署时，代理默认每秒访问一次 `/up`，直到达到部署超时；
+每次请求超时为 5 秒。
 
-Once the app is up, the proxy will stop hitting the healthcheck endpoint.
+应用就绪后，代理会停止访问健康检查端点。
 
 ```yaml
   healthcheck:
@@ -164,15 +163,13 @@ Once the app is up, the proxy will stop hitting the healthcheck endpoint.
     timeout: 3
 ```
 
-## [Buffering](#buffering)
+## [缓冲](#buffering)
 
-Whether to buffer request and response bodies in the proxy.
+是否在代理中缓冲请求和响应体。
 
-By default, buffering is enabled with a max request body size of 1GB and no limit
-for response size.
+默认启用缓冲，最大请求体为 1GB，响应体无限制。
 
-You can also set the memory limit for buffering, which defaults to 1MB; anything
-larger than that is written to disk.
+还可以设置缓冲的内存上限，默认为 1MB；超过该大小的内容会写入磁盘。
 
 ```yaml
   buffering:
@@ -183,11 +180,11 @@ larger than that is written to disk.
     memory: 2_000_000
 ```
 
-## [Logging](#logging)
+## [日志](#logging)
 
-Configure request logging for the proxy.
-You can specify request and response headers to log.
-By default, `Cache-Control`, `Last-Modified`, and `User-Agent` request headers are logged:
+配置代理的请求日志。
+可指定要记录的请求头和响应头。
+默认会记录 `Cache-Control`、`Last-Modified` 和 `User-Agent` 请求头：
 
 ```yaml
   logging:
@@ -199,37 +196,37 @@ By default, `Cache-Control`, `Last-Modified`, and `User-Agent` request headers a
       - X-Request-Start
 ```
 
-## [Run configuration](#run-configuration)
+## [运行配置](#run-configuration)
 
-These options are used when booting the proxy container.
+这些选项在启动代理容器时使用。
 
 
 ```yaml
   run:
-    http_port: 8080                # HTTP port to use (default 80)
-    https_port: 8443               # HTTPS port to use (default 443)
-    metrics_port: 9090             # Port for Prometheus metrics
-    debug: true                    # Debug logging (default: false)
-    log_max_size: "30m"            # Maximum log file size (default: "10m")
-    publish: false                 # Publish ports to the host (default: true)
-    bind_ips:                      # List of IPs to bind to when publishing ports
+    http_port: 8080                # 使用的 HTTP 端口（默认 80）
+    https_port: 8443               # 使用的 HTTPS 端口（默认 443）
+    metrics_port: 9090             # Prometheus 指标端口
+    debug: true                    # 调试日志（默认：false）
+    log_max_size: "30m"            # 最大日志文件大小（默认："10m"）
+    publish: false                 # 是否将端口发布到主机（默认：true）
+    bind_ips:                      # 发布端口时绑定的 IP 列表
       - 0.0.0.0
-    registry: registry:4443        # Container registry for the kamal-proxy image
-                                   # (defaults to Docker Hub)
-    repository: myrepo/kamal-proxy # Container repository for the kamal-proxy image
-                                   # (defaults to `basecamp/kamal-proxy`)
-    version: v0.8.0                # Version tag of the kamal-proxy image to use
-    options:                       # Additional options to pass to `docker run`
+    registry: registry:4443        # kamal-proxy 镜像的容器仓库
+                                   # （默认为 Docker Hub）
+    repository: myrepo/kamal-proxy # kamal-proxy 镜像的仓库名
+                                   # （默认为 `basecamp/kamal-proxy`）
+    version: v0.8.0                # 使用的 kamal-proxy 镜像版本标签
+    options:                       # 传给 `docker run` 的额外选项
       label:
         - custom.label=kamal-proxy
       memory: 512m
       cpus: 0.5
 ```
 
-## [Enabling/disabling the proxy on roles](#enabling/disabling-the-proxy-on-roles)
+## [在角色上启用/禁用代理](#enabling/disabling-the-proxy-on-roles)
 
-The proxy is enabled by default on the primary role but can be disabled by
-setting `proxy: false` in the primary role's configuration.
+默认在主角色上启用代理；可在主角色配置中设置
+`proxy: false` 禁用。
 
 ```yaml
 servers:
@@ -239,8 +236,8 @@ servers:
     proxy: false
 ```
 
-It is disabled by default on all other roles but can be enabled by setting
-`proxy: true` or providing a proxy configuration for that role.
+默认在其他所有角色上禁用；可设置 `proxy: true`，
+或为该角色提供 proxy 配置以启用。
 
 ```yaml
 servers:

@@ -6,43 +6,39 @@ title: SSHKit
 
 # SSHKit
 
-[SSHKit](https://github.com/capistrano/sshkit) is the SSH toolkit used by Kamal.
+[SSHKit](https://github.com/capistrano/sshkit) 是 Kamal 使用的 SSH 工具库。
 
-The default, settings should be sufficient for most use cases, but
-when connecting to a large number of hosts, you may need to adjust.
+默认设置对大多数场景已足够；连接大量主机时可能需要调整。
 
-## [SSHKit options](#sshkit-options)
+## [SSHKit 选项](#sshkit-options)
 
-The options are specified under the sshkit key in the configuration file.
+这些选项写在配置文件的 `sshkit` 键下。
 
 ```yaml
 sshkit:
 ```
 
-## [Max concurrent starts](#max-concurrent-starts)
+## [最大并发启动数](#max-concurrent-starts)
 
-Creating SSH connections concurrently can be an issue when deploying to many servers.
-By default, Kamal will limit concurrent connection starts to 30 at a time.
+并发建立大量 SSH 连接时可能出问题。默认情况下，Kamal 会将并发连接启动限制为一次最多 30 个。
 
 ```yaml
   max_concurrent_starts: 10
 ```
 
-## [Pool idle timeout](#pool-idle-timeout)
+## [连接池空闲超时](#pool-idle-timeout)
 
-Kamal sets a long idle timeout of 900 seconds on connections to try to avoid
-re-connection storms after an idle period, such as building an image or waiting for CI.
+Kamal 将连接空闲超时设为较长的 900 秒，尽量避免在空闲一段时间后（例如构建镜像或等待 CI）出现重连风暴。
 
 ```yaml
   pool_idle_timeout: 300
 ```
 
-## [DNS retry settings](#dns-retry-settings)
+## [DNS 重试设置](#dns-retry-settings)
 
-Some resolvers (mDNSResponder, systemd-resolved, Tailscale) can drop lookups during
-bursts of concurrent SSH starts. Kamal will retry DNS failures automatically.
+某些解析器（mDNSResponder、systemd-resolved、Tailscale）在大量并发 SSH 启动时可能丢弃查询。Kamal 会自动重试 DNS 失败。
 
-Number of retries after the initial attempt. Set to 0 to disable.
+该值为首次尝试之后的重试次数。设为 0 可禁用。
 
 ```yaml
   dns_retries: 3

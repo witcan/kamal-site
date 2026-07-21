@@ -1,61 +1,58 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/builder.yml in the Kamal repository.
-title: Builder
+title: 构建器
 ---
 
-# Builder
+# 构建器
 
-The builder configuration controls how the application is built with `docker build`.
+构建器配置控制如何通过 `docker build` 构建应用。
 
-See [Builder examples](/docs/configuration/builder-examples/) for more information.
+更多信息见[构建器示例](/docs/configuration/builder-examples/)。
 
-## [Builder options](#builder-options)
+## [构建器选项](#builder-options)
 
-Options go under the builder key in the root configuration.
+选项写在根配置的 `builder` 键下。
 
 ```yaml
 builder:
 ```
 
-## [Arch](#arch)
+## [架构](#arch)
 
-The architectures to build for — you can set an array or just a single value.
+要构建的架构——可以是数组，也可以是单个值。
 
-Allowed values are `amd64` and `arm64`:
+允许的值为 `amd64` 和 `arm64`：
 
 ```yaml
   arch:
     - amd64
 ```
 
-## [Remote](#remote)
+## [远程](#remote)
 
-The connection string for a remote builder. If supplied, Kamal will use this
-for builds that do not match the local architecture of the deployment host.
+远程构建器的连接字符串。若提供，Kamal 会在构建与部署主机本地架构不匹配时使用它。
 
 ```yaml
   remote: ssh://docker@docker-builder
 ```
 
-## [Local](#local)
+## [本地](#local)
 
-If set to false, Kamal will always use the remote builder even when building
-the local architecture.
+若设为 false，即使构建本地架构，Kamal 也会始终使用远程构建器。
 
-Defaults to true:
+默认为 true：
 
 ```yaml
   local: true
 ```
 
-## [Buildpack configuration](#buildpack-configuration)
+## [Buildpack 配置](#buildpack-configuration)
 
-The build configuration for using pack to build a Cloud Native Buildpack image.
+使用 pack 构建 Cloud Native Buildpack 镜像时的构建配置。
 
-For additional buildpack customization options you can create a project descriptor
-file(project.toml) that the Pack CLI will automatically use.
-See https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/ for more information.
+若需更多 buildpack 自定义选项，可创建项目描述文件（project.toml），
+Pack CLI 会自动使用。详见 https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-project-toml/。
 
 ```yaml
   pack:
@@ -65,11 +62,11 @@ See https://buildpacks.io/docs/for-app-developers/how-to/build-inputs/use-projec
       - heroku/procfile
 ```
 
-## [Builder cache](#builder-cache)
+## [构建缓存](#builder-cache)
 
-The type must be either 'gha' or 'registry'.
+类型必须是 `gha` 或 `registry`。
 
-The image is only used for registry cache and is not compatible with the Docker driver:
+`image` 仅用于 registry 缓存，且与 Docker 驱动不兼容：
 
 ```yaml
   cache:
@@ -78,12 +75,12 @@ The image is only used for registry cache and is not compatible with the Docker 
     image: kamal-app-build-cache
 ```
 
-## [Build context](#build-context)
+## [构建上下文](#build-context)
 
-If this is not set, then a local Git clone of the repo is used.
-This ensures a clean build with no uncommitted changes.
+若未设置，则会使用仓库的本地 Git 克隆。
+这样可保证构建干净，不包含未提交的更改。
 
-To use the local checkout instead, you can set the context to `.`, or a path to another directory.
+若要使用本地工作区，可将 context 设为 `.`，或设为其他目录的路径。
 
 ```yaml
   context: .
@@ -91,39 +88,39 @@ To use the local checkout instead, you can set the context to `.`, or a path to 
 
 ## [Dockerfile](#dockerfile)
 
-The Dockerfile to use for building, defaults to `Dockerfile`:
+用于构建的 Dockerfile，默认为 `Dockerfile`：
 
 ```yaml
   dockerfile: Dockerfile.production
 ```
 
-## [Build target](#build-target)
+## [构建目标](#build-target)
 
-If not set, then the default target is used:
+若未设置，则使用默认 target：
 
 ```yaml
   target: production
 ```
 
-## [Build arguments](#build-arguments)
+## [构建参数](#build-arguments)
 
-Any additional build arguments, passed to `docker build` with `--build-arg <key>=<value>`:
+额外的构建参数，会通过 `--build-arg <key>=<value>` 传给 `docker build`：
 
 ```yaml
   args:
     ENVIRONMENT: production
 ```
 
-## [Referencing build arguments](#referencing-build-arguments)
+## [引用构建参数](#referencing-build-arguments)
 
 ```shell
 ARG RUBY_VERSION
 FROM ruby:$RUBY_VERSION-slim as base
 ```
 
-## [Build secrets](#build-secrets)
+## [构建密钥](#build-secrets)
 
-Values are read from `.kamal/secrets`:
+值从 `.kamal/secrets` 读取：
 
 ```yaml
   secrets:
@@ -131,7 +128,7 @@ Values are read from `.kamal/secrets`:
     - SECRET2
 ```
 
-## [Referencing build secrets](#referencing-build-secrets)
+## [引用构建密钥](#referencing-build-secrets)
 
 ```shell
 # Copy Gemfiles
@@ -147,40 +144,40 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
 
 ## [SSH](#ssh)
 
-SSH agent socket or keys to expose to the build:
+向构建暴露的 SSH agent socket 或密钥：
 
 ```yaml
   ssh: default=$SSH_AUTH_SOCK
 ```
 
-## [Driver](#driver)
+## [驱动](#driver)
 
-The build driver to use, defaults to `docker-container`:
+使用的构建驱动，默认为 `docker-container`：
 
 ```yaml
   driver: docker
 ```
 
 
-If you want to use Docker Build Cloud (https://www.docker.com/products/build-cloud/), you can set the driver to:
+若要使用 Docker Build Cloud（https://www.docker.com/products/build-cloud/），可将驱动设为：
 
 ```yaml
   driver: cloud org-name/builder-name
 ```
 
-## [Provenance](#provenance)
+## [来源证明（Provenance）](#provenance)
 
-It is used to configure provenance attestations for the build result.
-The value can also be a boolean to enable or disable provenance attestations.
+用于配置构建结果的 provenance 证明。
+值也可以是布尔值，以启用或禁用 provenance 证明。
 
 ```yaml
   provenance: mode=max
 ```
 
-## [SBOM (Software Bill of Materials)](#sbom-(software-bill-of-materials))
+## [SBOM（软件物料清单）](#sbom-(software-bill-of-materials))
 
-It is used to configure SBOM generation for the build result.
-The value can also be a boolean to enable or disable SBOM generation.
+用于配置构建结果的 SBOM 生成。
+值也可以是布尔值，以启用或禁用 SBOM 生成。
 
 ```yaml
   sbom: true

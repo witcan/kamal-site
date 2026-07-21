@@ -1,16 +1,16 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/output.yml in the Kamal repository.
-title: Output
+title: 输出
 ---
 
-# Output
+# 输出
 
-Configure where Kamal sends command output logs.
+配置 Kamal 将命令输出日志发送到何处。
 
-## [Output options](#output-options)
+## [输出选项](#output-options)
 
-The options are specified under the output key in the configuration file.
+这些选项写在配置文件的 `output` 键下。
 
 ```yaml
 output:
@@ -18,21 +18,20 @@ output:
 
 ## [OTel](#otel)
 
-Ship deploy logs to an OpenTelemetry-compatible endpoint via OTLP HTTP.
+通过 OTLP HTTP 将部署日志发送到兼容 OpenTelemetry 的端点。
 
-Logs are sent as OTLP log records with resource attributes derived from
-Kamal's deploy tags (service, version, performer, destination, etc.)
+日志以 OTLP 日志记录发送，资源属性来自 Kamal 的部署标签（service、version、performer、destination 等）。
 
 ```yaml
   otel:
     endpoint: http://otel-gateway:4318
 ```
 
-## [File](#file)
+## [文件](#file)
 
-Write deploy logs to a file on the local machine.
+将部署日志写入本机文件。
 
-One log file is created per deploy, named with the timestamp and command.
+每次部署会创建一个日志文件，文件名包含时间戳和命令名。
 
 ```yaml
   file:

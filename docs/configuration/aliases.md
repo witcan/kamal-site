@@ -1,37 +1,37 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/alias.yml in the Kamal repository.
-title: Aliases
+title: 别名
 ---
 
-# Aliases
+# 别名
 
-Aliases are shortcuts for Kamal commands.
+别名是 Kamal 命令的快捷方式。
 
-For example, for a Rails app, you might open a console with:
+例如，对 Rails 应用，你可能会这样打开控制台：
 
 ```shell
 kamal app exec -i --reuse "bin/rails console"
 ```
 
-By defining an alias, like this:
+定义别名后：
 
 ```yaml
 aliases:
   console: app exec -i --reuse "bin/rails console"
 ```
 
-You can now open the console with:
+就可以这样打开控制台：
 
 ```shell
 kamal console
 ```
 
-## [Configuring aliases](#configuring-aliases)
+## [配置别名](#configuring-aliases)
 
-Aliases are defined in the root config under the alias key.
+别名定义在根配置的 `aliases` 键下。
 
-Each alias is named and can only contain lowercase letters, numbers, dashes, and underscores:
+每个别名都有名称，且只能包含小写字母、数字、连字符和下划线：
 
 ```yaml
 aliases:
@@ -39,7 +39,7 @@ aliases:
 ```
 
 
-Aliases can include a destination with the `-d` flag:
+别名可以通过 `-d` 标志指定目标环境：
 
 ```yaml
   staging_deploy: deploy -d staging

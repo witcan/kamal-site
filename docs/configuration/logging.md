@@ -1,34 +1,34 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/logging.yml in the Kamal repository.
-title: Custom logging configuration
+title: 自定义日志配置
 ---
 
-# Custom logging configuration
+# 自定义日志配置
 
-Set these to control the Docker logging driver and options.
+通过这些选项控制 Docker 的日志驱动及其参数。
 
-## [Logging settings](#logging-settings)
+## [日志设置](#logging-settings)
 
-These go under the logging key in the configuration file.
+写在配置文件的 `logging` 键下。
 
-This can be specified at the root level or for a specific role.
+可以在根级别指定，也可以针对某个角色指定。
 
 ```yaml
 logging:
 ```
 
-## [Driver](#driver)
+## [驱动](#driver)
 
-The logging driver to use, passed to Docker via `--log-driver`:
+要使用的日志驱动，会通过 `--log-driver` 传给 Docker：
 
 ```yaml
   driver: json-file
 ```
 
-## [Options](#options)
+## [选项](#options)
 
-Any logging options to pass to the driver, passed to Docker via `--log-opt`:
+传给驱动的日志选项，会通过 `--log-opt` 传给 Docker：
 
 ```yaml
   options:

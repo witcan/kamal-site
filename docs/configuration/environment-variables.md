@@ -1,19 +1,18 @@
 ---
 # This file has been generated from the Kamal source, do not edit directly.
 # Find the source of this file at lib/kamal/configuration/docs/env.yml in the Kamal repository.
-title: Environment variables
+title: 环境变量
 ---
 
-# Environment variables
+# 环境变量
 
-Environment variables can be set directly in the Kamal configuration or
-read from `.kamal/secrets`.
+环境变量可以直接写在 Kamal 配置中，也可以从 `.kamal/secrets` 读取。
 
-## [Reading environment variables from the configuration](#reading-environment-variables-from-the-configuration)
+## [从配置中读取环境变量](#reading-environment-variables-from-the-configuration)
 
-Environment variables can be set directly in the configuration file.
+环境变量可以直接写在配置文件中。
 
-These are passed to the `docker run` command when deploying.
+部署时会传给 `docker run` 命令。
 
 ```yaml
 env:
@@ -21,26 +20,25 @@ env:
   DATABASE_PORT: 3306
 ```
 
-## [Secrets](#secrets)
+## [密钥（Secrets）](#secrets)
 
-Kamal uses dotenv to automatically load environment variables from the configured secrets files.
+Kamal 使用 dotenv 自动从配置的密钥文件加载环境变量。
 
-Common secrets across all destinations can be set in `.kamal/secrets-common`. Kamal looks for
-`.kamal/secrets-common` first, then `.kamal/secrets`, with later values overriding earlier ones.
+所有目标环境共用的密钥可写在 `.kamal/secrets-common` 中。Kamal 会先查找
+`.kamal/secrets-common`，再查找 `.kamal/secrets`，后者会覆盖前者中的同名值。
 
-If you are using destinations, Kamal looks for `.kamal/secrets-common` first, then
-`.kamal/secrets.<destination>`. The non-destination `.kamal/secrets` file is not read when a
-destination is selected.
+若使用了 destination，Kamal 会先查找 `.kamal/secrets-common`，再查找
+`.kamal/secrets.<destination>`。选定 destination 时不会读取无 destination 的 `.kamal/secrets` 文件。
 
-This file can be used to set variables like `KAMAL_REGISTRY_PASSWORD` or database passwords.
-You can use variable or command substitution in the secrets file.
+该文件可用于设置 `KAMAL_REGISTRY_PASSWORD` 或数据库密码等变量。
+密钥文件中支持变量替换和命令替换。
 
 ```shell
 KAMAL_REGISTRY_PASSWORD=$KAMAL_REGISTRY_PASSWORD
 RAILS_MASTER_KEY=$(cat config/master.key)
 ```
 
-You can also use [secret helpers](../../commands/secrets) for some common password managers.
+也可以使用[密钥辅助命令](../../commands/secrets)对接常见密码管理器。
 
 ```shell
 SECRETS=$(kamal secrets fetch ...)
@@ -49,13 +47,13 @@ REGISTRY_PASSWORD=$(kamal secrets extract REGISTRY_PASSWORD $SECRETS)
 DB_PASSWORD=$(kamal secrets extract DB_PASSWORD $SECRETS)
 ```
 
-If you store secrets directly in `.kamal/secrets`, ensure that it is not checked into version control.
+若直接把密钥写在 `.kamal/secrets` 中，请确保该文件不会提交到版本控制。
 
-To pass the secrets, you should list them under the `secret` key. When you do this, the
-other variables need to be moved under the `clear` key.
+要传入密钥，应把它们列在 `secret` 键下。这样做时，
+其他变量需要移到 `clear` 键下。
 
-Unlike clear values, secrets are not passed directly to the container
-but are stored in an env file on the host:
+与明文值不同，密钥不会直接传给容器，
+而是保存在主机上的 env 文件中：
 
 ```yaml
 env:
@@ -65,13 +63,12 @@ env:
     - DB_PASSWORD
 ```
 
-## [Aliased secrets](#aliased-secrets)
+## [别名密钥](#aliased-secrets)
 
-You can also alias secrets to other secrets using a `:` separator.
+也可以用 `:` 分隔符把密钥别名到其他密钥。
 
-This is useful when the ENV name is different from the secret name. For example, if you have two
-places where you need to define the ENV variable `DB_PASSWORD`, but the value is different depending
-on the context.
+当环境变量名与密钥名不同时很有用。例如，你需要在两处定义环境变量 `DB_PASSWORD`，
+但不同上下文中的值不同。
 
 ```shell
 SECRETS=$(kamal secrets fetch ...)
@@ -99,14 +96,14 @@ accessories:
         - DB_PASSWORD:SECONDARY_DB_PASSWORD
 ```
 
-## [Tags](#tags)
+## [标签](#tags)
 
-Tags are used to add extra env variables to specific hosts.
-See [Servers](../servers) for how to tag hosts.
+标签用于为特定主机添加额外环境变量。
+如何给主机打标签见[服务器](../servers)。
 
-Tags are only allowed in the top-level env configuration (i.e., not under a role-specific env).
+标签只允许出现在顶层 env 配置中（即不能写在角色专属的 env 下）。
 
-The env variables can be specified with secret and clear values as explained above.
+环境变量可以像上文一样用 secret 和 clear 分别指定。
 
 ```yaml
 env:
@@ -120,7 +117,7 @@ env:
         - MYSQL_PASSWORD
 ```
 
-## [Example configuration](#example-configuration)
+## [配置示例](#example-configuration)
 
 ```yaml
 env:
