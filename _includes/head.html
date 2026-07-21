@@ -1,6 +1,3 @@
-<!doctype html>
-
-<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title | smartify }} — {% endif %}{{ site.title | smartify }}</title>
@@ -8,9 +5,5 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | absolute_url }}">
   <link rel="icon" href="{{ '/assets/images/favicon.svg' | absolute_url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | absolute_url }}">
-  {% if page.lang == 'zh' %}
-    <html lang="zh-CN">
-  {% else %}
-    <html lang="en">
-  {% endif %}
-</head>
+  <link rel="alternate" hreflang="en" href="{{ site.url }}">
+  <link rel="alternate" hreflang="zh" href="{{ site.url }}/docs/zh/">
