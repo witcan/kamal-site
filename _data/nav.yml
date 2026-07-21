@@ -6,6 +6,12 @@
   - title: "Version 1.9.2"
     url: /v1/docs/
 
+- title: "中文文档"
+  url: /docs/zh/
+  options:
+  - title: "版本 2.12.0"
+    url: /docs/zh/
+
 - title: "Source code"
   url: https://github.com/basecamp/kamal
   external: true
