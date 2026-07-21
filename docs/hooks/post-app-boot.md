@@ -2,8 +2,8 @@
 title: post-app-boot
 ---
 
-# Hooks: post-app-boot
+# 钩子：post-app-boot
 
-Run after booting the app container when you call `kamal app boot`, or indirectly via `kamal deploy`.
+在调用 `kamal app boot`（或间接通过 `kamal deploy`）启动应用容器之后运行。
 
-See [pre-app-boot](../pre-app-boot) for more information.
+更多信息见 [pre-app-boot](../pre-app-boot)。

@@ -4,10 +4,10 @@ title: Setup
 
 # kamal setup
 
-Kamal setup will run everything required to deploy an application to a fresh host.
+Kamal setup 会在全新主机上执行部署应用所需的全部步骤。
 
-It will:
+它会：
 
-1. Install Docker on all servers, if it has permission and it is not already installed.
-2. Boot all accessories.
-3. Deploy the app (see [`kamal deploy`](../deploy)).
+1. 若有权限且尚未安装，则在所有服务器上安装 Docker。
+2. 启动全部附属服务。
+3. 部署应用（见 [`kamal deploy`](../deploy)）。

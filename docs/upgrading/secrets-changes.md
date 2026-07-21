@@ -1,20 +1,20 @@
 ---
-title: Secrets changes
+title: 密钥变更
 ---
 
-# Kamal 2: Secrets changes
+# Kamal 2：密钥变更
 
-Secrets have moved from `.env`/`.env.rb` to `.kamal/secrets`.
+密钥已从 `.env`/`.env.rb` 迁移到 `.kamal/secrets`。
 
-If you are using destinations, secrets will be read from `.kamal/secrets.<DESTINATION>` first or `.kamal/secrets-common` if it is not found.
+若使用 destination，密钥会先从 `.kamal/secrets.<DESTINATION>` 读取；找不到则使用 `.kamal/secrets-common`。
 
-## [Interpolating secrets](#interpolating-secrets)
+## [插值密钥](#interpolating-secrets)
 
-The `kamal envify` and `kamal env` commands have been removed, and secrets no longer have a separate lifecycle.
+`kamal envify` 和 `kamal env` 命令已移除，密钥不再有独立的生命周期。
 
-If you were generating secrets with `kamal envify`, you can instead use dotenv's [command](https://github.com/bkeepers/dotenv?tab=readme-ov-file#command-substitution) and [variable](https://github.com/bkeepers/dotenv?tab=readme-ov-file#variable-substitution) substitution.
+若曾用 `kamal envify` 生成密钥，可改用 dotenv 的[命令](https://github.com/bkeepers/dotenv?tab=readme-ov-file#command-substitution)和[变量](https://github.com/bkeepers/dotenv?tab=readme-ov-file#variable-substitution)替换。
 
-The substitution will be performed on demand when running Kamal commands that need them.
+替换会在运行需要密钥的 Kamal 命令时按需执行。
 
 ```
 # .kamal/secrets
@@ -23,13 +23,13 @@ SECRET_FROM_ENV=$SECRET_FROM_ENV
 SECRET_FROM_COMMAND=$(op read ...)
 ```
 
-See [here](../../configuration/environment-variables#using-kamal-secrets) for more details.
+更多细节见[这里](../../configuration/environment-variables#using-kamal-secrets)。
 
-## [Environment variables in deploy.yml](#environment-variables-in-deployyml)
+## [deploy.yml 中的环境变量](#environment-variables-in-deployyml)
 
-In Kamal 1, `.env` was loaded into the environment, so you could refer to values from it via ERB in `deploy.yml`. This is no longer the case in Kamal 2. Values from `.kamal/secrets` are not loaded either.
+在 Kamal 1 中，`.env` 会加载到环境里，因此可在 `deploy.yml` 中通过 ERB 引用其中的值。Kamal 2 不再如此。`.kamal/secrets` 中的值也不会被加载。
 
-Kamal 1:
+Kamal 1：
 
 ```
 # .env
@@ -40,9 +40,9 @@ servers
   - <%= ENV["SERVER_IP"] %>
 ```
 
-To make this work in Kamal 2, you can manually load `.env`.
+要在 Kamal 2 中实现同样效果，可手动加载 `.env`。
 
-Kamal 2:
+Kamal 2：
 
 ```
 # .env

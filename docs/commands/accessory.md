@@ -4,31 +4,31 @@ title: Accessory
 
 # kamal accessory
 
-Accessories are long-lived services that your app depends on. They are not updated when you deploy.
+附属服务（accessories）是应用依赖的长期运行服务。部署时不会更新它们。
 
-They are not proxied, so rebooting will have a small period of downtime. You can map volumes from the host server into your container for persistence across reboots.
+它们不经过代理，因此重启会有短暂停机。你可以将主机上的卷映射到容器中，以便在重启后保持数据。
 
-Run `kamal accessory` to view and manage your accessories.
+运行 `kamal accessory` 可查看和管理附属服务。
 
 ```bash
 $ kamal accessory
 Commands:
-  kamal accessory boot [NAME]           # Boot new accessory service on host (use NAME=all to boot all accessories)
-  kamal accessory details [NAME]        # Show details about accessory on host (use NAME=all to show all accessories)
-  kamal accessory exec [NAME] [CMD...]  # Execute a custom command on servers within the accessory container (use --help to show options)
-  kamal accessory help [COMMAND]        # Describe subcommands or one specific subcommand
-  kamal accessory logs [NAME]           # Show log lines from accessory on host (use --help to show options)
-  kamal accessory reboot [NAME]         # Reboot existing accessory on host (stop container, remove container, start new container; use NAME=all to boot all accessories)
-  kamal accessory remove [NAME]         # Remove accessory container, image and data directory from host (use NAME=all to remove all accessories)
-  kamal accessory restart [NAME]        # Restart existing accessory container on host
-  kamal accessory start [NAME]          # Start existing accessory container on host
-  kamal accessory stop [NAME]           # Stop existing accessory container on host
-  kamal accessory upgrade               # Upgrade accessories from Kamal 1.x to 2.0 (restart them in 'kamal' network)
+  kamal accessory boot [NAME]           # 在主机上启动新的附属服务（NAME=all 启动全部）
+  kamal accessory details [NAME]        # 显示主机上附属服务的详情（NAME=all 显示全部）
+  kamal accessory exec [NAME] [CMD...]  # 在附属服务容器内执行自定义命令（--help 查看选项）
+  kamal accessory help [COMMAND]        # 说明子命令或某个具体子命令
+  kamal accessory logs [NAME]           # 显示主机上附属服务的日志（--help 查看选项）
+  kamal accessory reboot [NAME]         # 重启主机上的附属服务（停止容器、删除容器、启动新容器；NAME=all 处理全部）
+  kamal accessory remove [NAME]         # 从主机移除附属服务容器、镜像和数据目录（NAME=all 移除全部）
+  kamal accessory restart [NAME]        # 重启主机上已有的附属服务容器
+  kamal accessory start [NAME]          # 启动主机上已有的附属服务容器
+  kamal accessory stop [NAME]           # 停止主机上已有的附属服务容器
+  kamal accessory upgrade               # 将附属服务从 Kamal 1.x 升级到 2.0（在 'kamal' 网络中重启）
 ```
 
-To update an accessory, update the image in your config and run `kamal accessory reboot [NAME]`.
+要更新附属服务，请在配置中更新镜像，然后运行 `kamal accessory reboot [NAME]`。
 
-Example:
+示例：
 
 ```bash
 $ kamal accessory boot all

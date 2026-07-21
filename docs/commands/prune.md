@@ -4,15 +4,15 @@ title: Prune
 
 # kamal prune
 
-Prune old containers and images.
+清理旧容器和镜像。
 
-Kamal keeps the last 5 deployed containers and the images they are using. Pruning deletes all older containers and images.
+Kamal 会保留最近 5 次部署的容器及其使用的镜像。清理会删除所有更旧的容器和镜像。
 
 ```bash
 $ kamal prune
 Commands:
-  kamal prune all             # Prune unused images and stopped containers
-  kamal prune containers      # Prune all stopped containers, except the last n (default 5)
-  kamal prune help [COMMAND]  # Describe subcommands or one specific subcommand
-  kamal prune images          # Prune unused images
+  kamal prune all             # 清理未使用的镜像和已停止的容器
+  kamal prune containers      # 清理所有已停止的容器，保留最近 n 个（默认 5）
+  kamal prune help [COMMAND]  # 说明子命令或某个具体子命令
+  kamal prune images          # 清理未使用的镜像
 ```

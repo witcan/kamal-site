@@ -1,7 +1,7 @@
 ---
-title: Help
+title: Docs
 ---
 
 # kamal docs
 
-Outputs configuration documentation.
+输出配置文档。

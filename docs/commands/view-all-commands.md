@@ -1,53 +1,53 @@
 ---
-title: View all commands
+title: 查看全部命令
 ---
 
-# View all commands
+# 查看全部命令
 
-You can view all of the commands by running `kamal --help`.
+运行 `kamal --help` 可查看所有命令。
 
 ```bash
 $ kamal --help
 Commands:
-  kamal accessory           # Manage accessories (db/redis/search)
-  kamal app                 # Manage application
-  kamal audit               # Show audit log from servers
-  kamal build               # Build application image
-  kamal config              # Show combined config (including secrets!)
-  kamal deploy              # Deploy app to servers
-  kamal details             # Show details about all containers
-  kamal docs [SECTION]      # Show Kamal configuration documentation
-  kamal help [COMMAND]      # Describe available commands or one specific command
-  kamal init                # Create config stub in config/deploy.yml and secrets stub in .kamal
-  kamal lock                # Manage the deploy lock
-  kamal proxy               # Manage kamal-proxy
-  kamal prune               # Prune old application images and containers
-  kamal redeploy            # Deploy app to servers without bootstrapping servers, starting kamal-proxy and pruning
-  kamal registry            # Login and -out of the image registry
-  kamal remove              # Remove kamal-proxy, app, accessories, and registry session from servers
-  kamal rollback [VERSION]  # Rollback app to VERSION
-  kamal secrets             # Helpers for extracting secrets
-  kamal server              # Bootstrap servers with curl and Docker
-  kamal setup               # Setup all accessories, push the env, and deploy app to servers
-  kamal upgrade             # Upgrade from Kamal 1.x to 2.0
-  kamal version             # Show Kamal version
+  kamal accessory           # 管理附属服务（db/redis/search）
+  kamal app                 # 管理应用
+  kamal audit               # 显示服务器上的审计日志
+  kamal build               # 构建应用镜像
+  kamal config              # 显示合并后的配置（含密钥！）
+  kamal deploy              # 将应用部署到服务器
+  kamal details             # 显示所有容器的详细信息
+  kamal docs [SECTION]      # 显示 Kamal 配置文档
+  kamal help [COMMAND]      # 说明可用命令或某个具体命令
+  kamal init                # 在 config/deploy.yml 创建配置模板，在 .kamal 创建密钥模板
+  kamal lock                # 管理部署锁
+  kamal proxy               # 管理 kamal-proxy
+  kamal prune               # 清理旧的应用镜像和容器
+  kamal redeploy            # 部署应用（不初始化服务器、不启动 kamal-proxy、不清理）
+  kamal registry            # 登录/登出镜像仓库
+  kamal remove              # 从服务器移除 kamal-proxy、应用、附属服务和仓库会话
+  kamal rollback [VERSION]  # 将应用回滚到 VERSION
+  kamal secrets             # 提取密钥的辅助命令
+  kamal server              # 用 curl 和 Docker 初始化服务器
+  kamal setup               # 设置全部附属服务、推送环境并部署应用
+  kamal upgrade             # 从 Kamal 1.x 升级到 2.0
+  kamal version             # 显示 Kamal 版本
 
 Options:
-  -v, [--verbose], [--no-verbose], [--skip-verbose]        # Detailed logging
-  -q, [--quiet], [--no-quiet], [--skip-quiet]              # Minimal logging
-      [--version=VERSION]                                  # Run commands against a specific app version
-  -p, [--primary], [--no-primary], [--skip-primary]        # Run commands only on primary host instead of all
-  -h, [--hosts=HOSTS]                                      # Run commands on these hosts instead of all (separate by comma, supports wildcards with *)
-  -r, [--roles=ROLES]                                      # Run commands on these roles instead of all (separate by comma, supports wildcards with *)
-  -c, [--config-file=CONFIG_FILE]                          # Path to config file
-                                                           # Default: config/deploy.yml
-  -d, [--destination=DESTINATION]                          # Specify destination to be used for config file (staging -> deploy.staging.yml)
-  -H, [--skip-hooks]                                       # Don't run hooks
-                                                           # Default: false
-      [--lock-wait], [--no-lock-wait], [--skip-lock-wait]  # Wait for the deploy lock if it's already held instead of failing immediately
-                                                           # Default: false
-      [--lock-wait-timeout=N]                              # Maximum seconds to wait for the deploy lock when --lock-wait is set
-                                                           # Default: 900
-      [--lock-wait-interval=N]                             # Seconds between deploy lock polls when --lock-wait is set
-                                                           # Default: 15
+  -v, [--verbose], [--no-verbose], [--skip-verbose]        # 详细日志
+  -q, [--quiet], [--no-quiet], [--skip-quiet]              # 精简日志
+      [--version=VERSION]                                  # 针对特定应用版本运行命令
+  -p, [--primary], [--no-primary], [--skip-primary]        # 只在主主机上运行，而非全部
+  -h, [--hosts=HOSTS]                                      # 只在这些主机上运行（逗号分隔，支持 * 通配符）
+  -r, [--roles=ROLES]                                      # 只在这些角色上运行（逗号分隔，支持 * 通配符）
+  -c, [--config-file=CONFIG_FILE]                          # 配置文件路径
+                                                           # 默认：config/deploy.yml
+  -d, [--destination=DESTINATION]                          # 指定目标环境配置（staging -> deploy.staging.yml）
+  -H, [--skip-hooks]                                       # 不运行钩子
+                                                           # 默认：false
+      [--lock-wait], [--no-lock-wait], [--skip-lock-wait]  # 部署锁已被占用时等待，而不是立即失败
+                                                           # 默认：false
+      [--lock-wait-timeout=N]                              # 启用 --lock-wait 时等待部署锁的最长时间（秒）
+                                                           # 默认：900
+      [--lock-wait-interval=N]                             # 启用 --lock-wait 时轮询部署锁的间隔（秒）
+                                                           # 默认：15
 ```

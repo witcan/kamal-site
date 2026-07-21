@@ -4,6 +4,6 @@ title: Redeploy
 
 # kamal redeploy
 
-Deploy your app, but skip bootstrapping servers, starting kamal-proxy, pruning, and registry login.
+部署应用，但跳过初始化服务器、启动 kamal-proxy、清理以及登录镜像仓库。
 
-You must run [`kamal deploy`](../deploy) at least once first.
+必须先至少运行一次 [`kamal deploy`](../deploy)。

@@ -4,27 +4,27 @@ title: Build
 
 # kamal build
 
-Build your app images and push them to your servers. These commands are called indirectly by `kamal deploy` and `kamal redeploy`.
+构建应用镜像并推送到服务器。这些命令由 `kamal deploy` 和 `kamal redeploy` 间接调用。
 
-By default, Kamal will only build files you have committed to your Git repository. However, you can configure Kamal to use the current context (instead of a Git archive of HEAD) by setting the [build context](https://kamal-deploy.org/docs/configuration/builders/#build-context).
+默认情况下，Kamal 只会构建已提交到 Git 仓库的文件。不过，你可以通过设置[构建上下文](https://kamal-deploy.org/docs/configuration/builders/#build-context)，让 Kamal 使用当前工作区（而不是 HEAD 的 Git archive）。
 
 ```bash
 $ kamal build
 Commands:
-  kamal build create          # Create a build setup
-  kamal build deliver         # Build app and push app image to registry then pull image on servers
-  kamal build details         # Show build setup
-  kamal build dev             # Build using the working directory, tag it as dirty, and push to local image store.
-  kamal build help [COMMAND]  # Describe subcommands or one specific subcommand
-  kamal build pull            # Pull app image from registry onto servers
-  kamal build push            # Build and push app image to registry
-  kamal build remove          # Remove build setup
+  kamal build create          # 创建构建环境
+  kamal build deliver         # 构建应用、推送镜像到仓库，再在服务器上拉取镜像
+  kamal build details         # 显示构建环境
+  kamal build dev             # 使用工作目录构建，标记为 dirty，并推送到本地镜像存储
+  kamal build help [COMMAND]  # 说明子命令或某个具体子命令
+  kamal build pull            # 从镜像仓库拉取应用镜像到服务器
+  kamal build push            # 构建应用镜像并推送到镜像仓库
+  kamal build remove          # 移除构建环境
 ```
 
-The `build dev` and `build push` commands also support an `--output` option which specifies where the image should be pushed. `build push` defaults to "registry", and `build dev` defaults to "docker" which is the local image store. Any exported type supported by the `docker buildx build` option [`--output`](https://docs.docker.com/reference/cli/docker/buildx/build/#output) is allowed.
+`build dev` 和 `build push` 还支持 `--output` 选项，用于指定镜像输出位置。`build push` 默认为 "registry"，`build dev` 默认为 "docker"（本地镜像存储）。`docker buildx build` 的 [`--output`](https://docs.docker.com/reference/cli/docker/buildx/build/#output) 所支持的任何导出类型都可以使用。
 
 
-Examples:
+示例：
 
 ```bash
 $ kamal build push

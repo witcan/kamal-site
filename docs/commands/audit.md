@@ -4,7 +4,7 @@ title: Audit
 
 # kamal audit
 
-Show the latest commands that have been run on each server.
+显示每台服务器上最近执行过的命令。
 
 ```bash
 $ kamal audit

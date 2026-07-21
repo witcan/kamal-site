@@ -1,32 +1,32 @@
 ---
-title: Configuration changes
+title: 配置变更
 ---
 
-# Kamal 2: Configuration changes
+# Kamal 2：配置变更
 
-## [Builder](#builder)
+## [构建器](#builder)
 
-The [builder configuration](../../configuration/builders) has been simplified.
+[构建器配置](../../configuration/builders) 已简化。
 
-### Arch
+### 架构
 
-You must specify the architecture(s) you are building for:
+必须指定要构建的架构：
 
 ```yaml
-# single arch
+# 单架构
 builder:
   arch: amd64
 
-# multi arch
+# 多架构
 builder:
   arch:
     - amd64
     - arm64
 ```
 
-### Remote builders
+### 远程构建器
 
-Set the remote directly with the remote option. By default, it will only be used if the arch you are building doesn't match the local machine:
+通过 remote 选项直接设置远程构建器。默认仅在构建架构与本机不匹配时使用：
 
 ```yaml
 builder:
@@ -34,7 +34,7 @@ builder:
   remote: ssh://docker@docker-builder
 ```
 
-You can force Kamal to only use the remote builder, by setting `local: false`:
+可设置 `local: false` 强制 Kamal 只使用远程构建器：
 
 ```yaml
 builder:
@@ -43,41 +43,41 @@ builder:
   remote: ssh://docker@docker-builder
 ```
 
-### Driver
+### 驱动
 
-Kamal will now always use the Docker container (link) driver by default. You can set the driver yourself to change this:
+现在 Kamal 默认始终使用 Docker container 驱动。可自行设置 driver 来更改：
 
 ```yaml
 builder:
   driver: docker
 ```
 
-The Docker driver has limited capabilities — it doesn't support build caching or multiarch images.
+Docker 驱动能力有限——不支持构建缓存或多架构镜像。
 
-## [Traefik &rarr; Proxy](#traefik-to-proxy)
+## [Traefik → 代理](#traefik-to-proxy)
 
-The `traefik` configuration is no longer valid. Instead, you can configure kamal-proxy under [proxy](../../configuration/proxy).
+`traefik` 配置不再有效。改为在 [proxy](../../configuration/proxy) 下配置 kamal-proxy。
 
-If you were using custom Traefik labels or args, see the proxy configuration to determine whether you can convert them.
+若使用了自定义 Traefik 标签或参数，请查看代理配置，确认是否可以转换。
 
-Be aware that by default kamal-proxy forwards traffic to the container port 80, this is because we assume your container is running Thruster, and it listens on the port 80. If you are running a different service or port, you can configure the app_port setting:
+请注意：默认情况下 kamal-proxy 将流量转发到容器的 80 端口，因为我们假定容器运行 Thruster，并监听 80 端口。若运行的是其他服务或端口，可配置 app_port：
 
 ```yaml
 proxy:
   app_port: 3000
 ```
 
-kamal-proxy supports common requirements such as buffering, max request/response sizes, and forwarding headers, but it does not encompass the full breadth of everything Traefik can do.
+kamal-proxy 支持缓冲、最大请求/响应大小、转发头等常见需求，但并不涵盖 Traefik 的全部能力。
 
-If you don't see something you need, you can raise an issue and we'll look into it, but we don't promise to support everything — you might need to run Traefik or another proxy elsewhere in your stack to achieve what you want.
+若缺少你需要的功能，可以提 issue，我们会评估；但不保证支持一切——你可能需要在栈中其他位置运行 Traefik 或其他代理来实现目标。
 
-## [Healthchecks](#healthchecks)
+## [健康检查](#healthchecks)
 
-The healthcheck section has been removed.
+healthcheck 配置段已移除。
 
-### Proxy roles
+### 使用代理的角色
 
-For roles running with a proxy, the healthchecks are performed externally by kamal-proxy, not via internal Docker healthchecks. You can configure them under [proxy/healthcheck](../../configuration/proxy#healthcheck).
+对运行代理的角色，健康检查由 kamal-proxy 从外部执行，而非通过内部 Docker 健康检查。可在 [proxy/healthcheck](../../configuration/proxy#healthcheck) 下配置。
 
 ```yaml
 proxy:
@@ -87,16 +87,16 @@ proxy:
     timeout: 2
 ```
 
-Please note that the healthchecks will use the `app_port` setting, which defaults to port 80. Previously, healthchecks defaulted to port 3000. You can change this back with:
+请注意：健康检查会使用 `app_port` 设置，默认为 80 端口。以前健康检查默认是 3000 端口。可这样改回：
 
 ```yaml
 proxy:
   app_port: 3000
 ```
 
-### Non-proxy roles
+### 不使用代理的角色
 
-For roles that do not run the proxy, you can set a custom Docker healthcheck via the [options](../../configuration/roles#custom-role-configuration).
+对不运行代理的角色，可通过 [options](../../configuration/roles#custom-role-configuration) 设置自定义 Docker 健康检查。
 
 ```yaml
 servers:
@@ -107,22 +107,22 @@ servers:
       health-cmd: bin/jobs-healthy
 ```
 
-For those containers, Kamal will wait for the `healthy` status if they have a healthcheck or `running` if they don't.
+对这些容器，若有健康检查，Kamal 会等待 `healthy` 状态；若没有，则等待 `running`。
 
-You can set a `readiness_delay`, which is used when we see the `running` status. We'll wait that long and confirm the container is still running before continuing.
+可设置 `readiness_delay`：在看到 `running` 状态时使用。我们会等待该时长，并确认容器仍在运行后再继续。
 
-### All roles
+### 所有角色
 
-There are two timeouts you can set at the root of the config that are used across all roles, whether they use a proxy or not.
+可在配置根级设置两个超时，适用于所有角色，无论是否使用代理。
 
 ```yaml
-# how long to wait for new containers to boot
+# 等待新容器启动的时长
 deploy_timeout: 20
 
-# how long to wait for requests to complete before stopping old containers
-# Replaces stop_wait_time
+# 停止旧容器前等待请求完成的时长
+# 取代 stop_wait_time
 drain_timeout: 20
 
-# how long to wait for 'non-proxy role' containers without healthchecks to stay in the running state
+# 对无健康检查的「非代理角色」容器，等待其保持 running 状态的时长
 readiness_delay: 10
 ```

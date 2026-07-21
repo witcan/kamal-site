@@ -2,10 +2,10 @@
 title: pre-app-boot
 ---
 
-# Hooks: pre-app-boot
+# 钩子：pre-app-boot
 
-Run before booting the app container when you call `kamal app boot`, or indirectly via `kamal deploy`.
+在调用 `kamal app boot`（或间接通过 `kamal deploy`）启动应用容器之前运行。
 
-With a grouped boot strategy, the hook will be called once for each group, with `KAMAL_HOSTS` containing a list of servers in the group.
+若使用分组启动策略，该钩子会对每个组调用一次，此时 `KAMAL_HOSTS` 包含该组内的服务器列表。
 
-The [post-app-boot](../post-app-boot) will be called after the boot completes, again once per deployment group.
+启动完成后会调用 [post-app-boot](../post-app-boot)，同样按每个部署组调用一次。

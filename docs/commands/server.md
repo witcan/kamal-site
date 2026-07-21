@@ -7,24 +7,24 @@ title: Server
 ```bash
 $ kamal server
 Commands:
-  kamal server bootstrap       # Set up Docker to run Kamal apps
-  kamal server exec            # Run a custom command on the server (use --help to show options)
-  kamal server help [COMMAND]  # Describe subcommands or one specific subcommand
+  kamal server bootstrap       # 配置 Docker 以运行 Kamal 应用
+  kamal server exec            # 在服务器上运行自定义命令（--help 查看选项）
+  kamal server help [COMMAND]  # 说明子命令或某个具体子命令
 ```
 
-## [Bootstrap server](#bootstrap-server)
+## [初始化服务器](#bootstrap-server)
 
-You can run `kamal server bootstrap` to set up Docker on your hosts.
+可运行 `kamal server bootstrap` 在主机上配置 Docker。
 
-It will check if Docker is installed and, if not, it will attempt to install it via [get.docker.com](https://get.docker.com/).
+它会检查是否已安装 Docker；若未安装，会尝试通过 [get.docker.com](https://get.docker.com/) 安装。
 
 ```bash
 $ kamal server bootstrap
 ```
 
-## [Execute command on all servers](#execute-command-on-all-servers)
+## [在所有服务器上执行命令](#execute-command-on-all-servers)
 
-Run a custom command on all servers.
+在所有服务器上运行自定义命令。
 
 ```bash
 $ kamal server exec "date"
@@ -35,9 +35,9 @@ App Host: 867.53.0.9
 Thu Jun 13 08:06:19 AM UTC 2024
 ```
 
-## [Execute command on primary server](#execute-command-on-primary-server)
+## [在主服务器上执行命令](#execute-command-on-primary-server)
 
-Run a custom command on the primary server.
+在主服务器上运行自定义命令。
 
 ```bash
 $ kamal server exec --primary "date"
@@ -48,9 +48,9 @@ App Host: 867.53.0.9
 Thu Jun 13 08:07:09 AM UTC 2024
 ```
 
-## [Execute interactive command on server](#execute-interactive-command-on-server)
+## [在服务器上执行交互式命令](#execute-interactive-command-on-server)
 
-Run an interactive command on the server.
+在服务器上运行交互式命令。
 
 ```bash
 $ kamal server exec --interactive "/bin/bash"

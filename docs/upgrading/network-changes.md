@@ -1,15 +1,15 @@
 ---
-title: Network changes
+title: 网络变更
 ---
 
-# Kamal 2: Network changes
+# Kamal 2：网络变更
 
-`kamal-proxy` needs a stable hostname for the container that it is routing to. This is so that it can identify and route traffic to the container across restarts.
+`kamal-proxy` 需要为其路由目标的容器提供稳定的主机名，以便在重启后仍能识别并路由流量。
 
-Using the default `bridge` network, application containers are assigned IP addresses, but they are not stable across restarts.
+使用默认的 `bridge` 网络时，应用容器会获得 IP 地址，但重启后并不稳定。
 
-So instead, we will create and use a custom network called `kamal`.
+因此我们会创建并使用名为 `kamal` 的自定义网络。
 
-If you have custom requirements for your network, you can create the `kamal` network yourself before deploying with Kamal, or use a `docker-setup` hook to configure the network when running `kamal setup`.
+若对网络有自定义需求，可在用 Kamal 部署前自行创建 `kamal` 网络，或使用 `docker-setup` 钩子在运行 `kamal setup` 时配置网络。
 
-Accessories will also run from within the `kamal` network.
+附属服务也会在 `kamal` 网络中运行。

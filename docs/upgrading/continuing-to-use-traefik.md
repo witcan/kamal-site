@@ -1,21 +1,21 @@
 ---
-title: "Kamal 2: Continuing to use Traefik"
+title: "Kamal 2：继续使用 Traefik"
 ---
 
-# Kamal 2: Continuing to use Traefik
+# Kamal 2：继续使用 Traefik
 
-Kamal 2 requires kamal-proxy, but it's possible to continue to use Traefik if required.
+Kamal 2 需要 kamal-proxy，但如有需要仍可继续使用 Traefik。
 
-You can run it as a Kamal accessory, and route requests through it and then on to kamal-proxy.
+可以将其作为 Kamal 附属服务运行，请求先经 Traefik，再转发到 kamal-proxy。
 
-## Set the kamal-proxy boot config
+## 设置 kamal-proxy 启动配置
 
-We'll need to change kamal-proxy's default boot config so that:
+需要修改 kamal-proxy 的默认启动配置，使：
 
-1. It doesn't publish ports on the host.
-2. It adds the labels Traefik needs to route requests to it.
+1. 不在主机上发布端口。
+2. 添加 Traefik 将其路由到自身所需的标签。
 
-Add a [pre-deploy hook](../../hooks/pre-deploy) for Traefik to pick up:
+添加一个 [pre-deploy 钩子](../../hooks/pre-deploy) 供 Traefik 使用：
 
 ```shell
 #!/bin/sh
@@ -25,11 +25,11 @@ kamal proxy boot_config set \
                    label=traefik.http.routers.kamal_proxy.rule=PathPrefix\(\`/\`\)
 ```
 
-You can add the `kamal proxy boot_config set` command to a [pre-deploy hook](../../hooks/pre-deploy). This will ensure that it is set correctly when deploying to a host for the first time.
+可将 `kamal proxy boot_config set` 命令加入 [pre-deploy 钩子](../../hooks/pre-deploy)。这样首次部署到某台主机时配置会正确设置。
 
-## Create the accessory
+## 创建附属服务
 
-Add Traefik as an accessory to `config/deploy.yml`, binding to the host port.
+将 Traefik 作为附属服务加入 `config/deploy.yml`，并绑定到主机端口。
 
 ```yaml
 accessories:
@@ -45,11 +45,11 @@ accessories:
       - web
 ```
 
-## Running with Traefik
+## 与 Traefik 一起运行
 
-When you call `kamal setup`, it will boot the Traefik accessory, call the pre-deploy hook to update kamal-proxy's boot config, and then boot kamal-proxy and the app.
+调用 `kamal setup` 时会启动 Traefik 附属服务，调用 pre-deploy 钩子更新 kamal-proxy 的启动配置，再启动 kamal-proxy 和应用。
 
-Requests will flow from Traefik to kamal-proxy to your app.
+请求路径为：Traefik → kamal-proxy → 你的应用。
 
 ```
 $ docker ps
@@ -59,10 +59,10 @@ CONTAINER ID   IMAGE                                                            
 609a18d8ecd7   traefik:v2.10                                                             "/entrypoint.sh --pr…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp, :::80->80/tcp   traefik
 ```
 
-## Switching on a host already running kamal-proxy
+## 在已运行 kamal-proxy 的主机上切换
 
-If you are already running kamal-proxy, you'll need to:
+若已经在运行 kamal-proxy，需要：
 
-1. Manually run the `kamal proxy boot_config set` command from the deploy hook.
-2. Run `kamal proxy reboot` to pick up those boot config changes.
-3. Run `kamal accessory boot traefik` to start Traefik.
+1. 手动运行部署钩子中的 `kamal proxy boot_config set` 命令。
+2. 运行 `kamal proxy reboot` 以应用这些启动配置更改。
+3. 运行 `kamal accessory boot traefik` 启动 Traefik。

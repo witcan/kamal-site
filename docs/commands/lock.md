@@ -4,22 +4,22 @@ title: Lock
 
 # kamal lock
 
-Manage deployment locks.
+管理部署锁。
 
-Commands that are unsafe to run concurrently will take a lock while they run. The lock is an atomically created directory in the `.kamal` directory on the primary server.
+不安全并发运行的命令会在执行期间获取锁。锁是主服务器上 `.kamal` 目录中原子创建的目录。
 
-You can manage them directly — for example, clearing a leftover lock from a failed command or preventing deployments during a maintenance window.
+你可以直接管理它们——例如清除失败命令留下的锁，或在维护窗口期间阻止部署。
 
 ```bash
 $ kamal lock
 Commands:
-  kamal lock acquire -m, --message=MESSAGE  # Acquire the deploy lock
-  kamal lock help [COMMAND]                 # Describe subcommands or one specific subcommand
-  kamal lock release                        # Release the deploy lock
-  kamal lock status                         # Report lock status
+  kamal lock acquire -m, --message=MESSAGE  # 获取部署锁
+  kamal lock help [COMMAND]                 # 说明子命令或某个具体子命令
+  kamal lock release                        # 释放部署锁
+  kamal lock status                         # 报告锁状态
 ```
 
-Example:
+示例：
 
 ```bash
 $ kamal lock status
@@ -46,20 +46,20 @@ $ kamal lock status
 There is no deploy lock
 ```
 
-## [Waiting for the lock](#waiting-for-the-lock)
+## [等待锁](#waiting-for-the-lock)
 
-Commands that take a lock automatically while they run (such as `kamal deploy`) fail immediately if the lock is already held. Pass `--lock-wait` to make them poll and retry until the lock is released instead:
+会在运行期间自动获取锁的命令（例如 `kamal deploy`），若锁已被占用会立即失败。传入 `--lock-wait` 可改为轮询并等待锁释放：
 
 ```bash
 $ kamal deploy --lock-wait
 ```
 
-`--lock-wait` only waits on locks that another command took automatically while running. A lock set manually with `kamal lock acquire` is not waited on, and the command fails immediately with "Deploy lock held manually, not waiting".
+`--lock-wait` 只会等待其他命令运行时自动获取的锁。用 `kamal lock acquire` 手动设置的锁不会被等待，命令会立即失败并提示 "Deploy lock held manually, not waiting"。
 
-You can change the default timeout and polling interval:
+可以修改默认超时与轮询间隔：
 
-- `--lock-wait-timeout` — maximum seconds to wait before giving up (default `900`).
-- `--lock-wait-interval` — seconds between polls (default `15`).
+- `--lock-wait-timeout` — 放弃前的最长等待秒数（默认 `900`）。
+- `--lock-wait-interval` — 轮询间隔秒数（默认 `15`）。
 
 ```bash
 $ kamal deploy --lock-wait --lock-wait-timeout 300 --lock-wait-interval 10

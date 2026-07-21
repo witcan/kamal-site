@@ -4,7 +4,7 @@ title: Version
 
 # kamal version
 
-Returns the version of Kamal you have installed.
+返回已安装的 Kamal 版本。
 
 ```bash
 $ kamal version

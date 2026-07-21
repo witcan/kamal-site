@@ -4,36 +4,36 @@ title: Deploy
 
 # kamal deploy
 
-Build and deploy your app to all servers. By default, it will build the currently checked out version of the app.
+构建应用并部署到所有服务器。默认会构建当前检出的应用版本。
 
-Kamal will use [kamal-proxy](https://github.com/basecamp/kamal-proxy) to seamlessly move requests from the old version of the app to the new one without downtime.
+Kamal 会使用 [kamal-proxy](https://github.com/basecamp/kamal-proxy) 在不停机的情况下，将请求从旧版本无缝切到新版本。
 
-The deployment process is:
+部署流程为：
 
-1. Log in to the Docker registry locally and on all servers.
-2. Build the app image, push it to the registry, and pull it onto the servers.
-3. Ensure kamal-proxy is running and accepting traffic on ports 80 and 443.
-4. Start a new container with the version of the app that matches the current Git version hash.
-5. Tell kamal-proxy to route traffic to the new container once it is responding with `200 OK` to `GET /up` on port 80.
-6. Stop the old container running the previous version of the app.
-7. Prune unused images and stopped containers to ensure servers don't fill up.
+1. 在本地和所有服务器上登录 Docker 镜像仓库。
+2. 构建应用镜像，推送到仓库，再拉取到服务器。
+3. 确保 kamal-proxy 已运行，并在 80、443 端口接受流量。
+4. 用与当前 Git 版本哈希匹配的应用版本启动新容器。
+5. 当新容器对 80 端口的 `GET /up` 返回 `200 OK` 后，让 kamal-proxy 将流量路由到新容器。
+6. 停止运行旧版本应用的旧容器。
+7. 清理未使用的镜像和已停止的容器，避免服务器磁盘被占满。
 
 ```bash
 Usage:
   kamal deploy
 
 Options:
-  -P, [--skip-push]                                  # Skip image build and push
-                                                     # Default: false
-  -v, [--verbose], [--no-verbose], [--skip-verbose]  # Detailed logging
-  -q, [--quiet], [--no-quiet], [--skip-quiet]        # Minimal logging
-      [--version=VERSION]                            # Run commands against a specific app version
-  -p, [--primary], [--no-primary], [--skip-primary]  # Run commands only on primary host instead of all
-  -h, [--hosts=HOSTS]                                # Run commands on these hosts instead of all (separate by comma, supports wildcards with *)
-  -r, [--roles=ROLES]                                # Run commands on these roles instead of all (separate by comma, supports wildcards with *)
-  -c, [--config-file=CONFIG_FILE]                    # Path to config file
-                                                     # Default: config/deploy.yml
-  -d, [--destination=DESTINATION]                    # Specify destination to be used for config file (staging -> deploy.staging.yml)
-  -H, [--skip-hooks]                                 # Don't run hooks
-                                                     # Default: false
+  -P, [--skip-push]                                  # 跳过镜像构建与推送
+                                                     # 默认：false
+  -v, [--verbose], [--no-verbose], [--skip-verbose]  # 详细日志
+  -q, [--quiet], [--no-quiet], [--skip-quiet]        # 精简日志
+      [--version=VERSION]                            # 针对特定应用版本运行命令
+  -p, [--primary], [--no-primary], [--skip-primary]  # 只在主主机上运行，而非全部
+  -h, [--hosts=HOSTS]                                # 只在这些主机上运行（逗号分隔，支持 * 通配符）
+  -r, [--roles=ROLES]                                # 只在这些角色上运行（逗号分隔，支持 * 通配符）
+  -c, [--config-file=CONFIG_FILE]                    # 配置文件路径
+                                                     # 默认：config/deploy.yml
+  -d, [--destination=DESTINATION]                    # 指定目标环境配置（staging -> deploy.staging.yml）
+  -H, [--skip-hooks]                                 # 不运行钩子
+                                                     # 默认：false
 ```

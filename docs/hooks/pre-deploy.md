@@ -2,6 +2,6 @@
 title: pre-deploy
 ---
 
-# Hooks: pre-deploy
+# 钩子：pre-deploy
 
-For final checks before deploying, e.g., checking CI completed.
+用于部署前的最终检查，例如确认 CI 已完成。

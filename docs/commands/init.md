@@ -4,7 +4,7 @@ title: Init
 
 # kamal init
 
-Creates the files needed to deploy your application with `kamal`.
+创建使用 `kamal` 部署应用所需的文件。
 
 ```bash
 $ kamal init

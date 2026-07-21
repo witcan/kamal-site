@@ -4,7 +4,7 @@ title: Config
 
 # kamal config
 
-Displays your config.
+显示你的配置。
 
 ```bash
 $ kamal config

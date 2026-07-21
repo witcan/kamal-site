@@ -4,18 +4,19 @@ title: Registry
 
 # kamal registry
 
-Log in and out of the Docker registry on your servers.
+在服务器上登录和登出 Docker 镜像仓库。
 
 ```bash
 $ kamal registry
 Commands:
-  kamal registry help [COMMAND]  # Describe subcommands or one specific subcommand
-  kamal registry login           # Log in to remote registry locally and remotely
-  kamal registry logout          # Log out of remote registry locally and remotely
-  kamal registry remove          # Remove local registry or log out of remote registry locally and remotely
-  kamal registry setup           # Setup local registry or log in to remote registry locally and remotely```
+  kamal registry help [COMMAND]  # 说明子命令或某个具体子命令
+  kamal registry login           # 在本地和远程登录远程镜像仓库
+  kamal registry logout          # 在本地和远程登出远程镜像仓库
+  kamal registry remove          # 移除本地镜像仓库，或在本地和远程登出远程镜像仓库
+  kamal registry setup           # 设置本地镜像仓库，或在本地和远程登录远程镜像仓库
+```
 
-Examples:
+示例：
 
 ```bash
 $ kamal registry login

@@ -4,6 +4,6 @@ title: Upgrade
 
 # kamal upgrade
 
-Use `kamal upgrade` to upgrade your app running under Kamal 1.x to Kamal 2.0.
+使用 `kamal upgrade` 将运行在 Kamal 1.x 下的应用升级到 Kamal 2.0。
 
-Please read the [Upgrade Guide](../../upgrading/overview) first.
+请先阅读[升级指南](../../upgrading/overview)。

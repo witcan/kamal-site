@@ -2,6 +2,6 @@
 title: pre-connect
 ---
 
-# Hooks: pre-connect
+# 钩子：pre-connect
 
-Runs before taking the deploy lock. For anything that needs to run before connecting to remote hosts, e.g., DNS warming, checking if you are on the VPN.
+在获取部署锁之前运行。适用于需要在连接远程主机前执行的操作，例如 DNS 预热、检查是否已接入 VPN。

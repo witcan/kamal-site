@@ -2,6 +2,6 @@
 title: pre-build
 ---
 
-# Hooks: pre-build
+# 钩子：pre-build
 
-Used for pre-build checks, e.g., ensuring there are no uncommitted changes or that CI has passed.
+用于构建前检查，例如确保没有未提交的更改，或确认 CI 已通过。

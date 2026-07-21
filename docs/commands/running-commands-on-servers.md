@@ -1,12 +1,12 @@
 ---
-title: Running commands on servers
+title: 在服务器上运行命令
 ---
 
-# Running commands on servers
+# 在服务器上运行命令
 
-You can use [aliases](../../configuration/aliases) for common commands.
+常用命令可使用[别名](../../configuration/aliases)。
 
-## [Run command on all servers](#run-command-on-all-servers)
+## [在所有服务器上运行命令](#run-command-on-all-servers)
 
 ```bash
 $ kamal app exec 'ruby -v'
@@ -17,7 +17,7 @@ App Host: 192.168.0.2
 ruby 3.1.3p185 (2022-11-24 revision 1a6b16756e) [x86_64-linux]
 ```
 
-## [Run command on primary server](#run-command-on-primary-server)
+## [在主服务器上运行命令](#run-command-on-primary-server)
 
 ```bash
 $ kamal app exec --primary 'cat .ruby-version'
@@ -25,7 +25,7 @@ App Host: 192.168.0.1
 3.1.3
 ```
 
-## [Run Rails command on all servers](#run-rails-command-on-all-servers)
+## [在所有服务器上运行 Rails 命令](#run-rails-command-on-all-servers)
 
 ```bash
 $ kamal app exec 'bin/rails about'
@@ -54,41 +54,41 @@ Database adapter          sqlite3
 Database schema version   20221231233303
 ```
 
-## [Run Rails runner on primary server](#run-rails-runner-on-primary-server)
+## [在主服务器上运行 Rails runner](#run-rails-runner-on-primary-server)
 
 ```bash
 $ kamal app exec -p 'bin/rails runner "puts Rails.application.config.time_zone"'
 UTC
 ```
 
-## [Run interactive commands over SSH](#run-interactive-commands-over-ssh)
+## [通过 SSH 运行交互式命令](#run-interactive-commands-over-ssh)
 
-You can run interactive commands, like a Rails console or a bash session, on a server (default is primary, use `--hosts` to connect to another).
+你可以在服务器上运行交互式命令，例如 Rails 控制台或 bash 会话（默认在主服务器上，使用 `--hosts` 可连接其他服务器）。
 
-Start a bash session in a new container made from the most recent app image:
+在由最新应用镜像创建的新容器中启动 bash 会话：
 
 ```bash
 kamal app exec -i bash
 ```
 
-Start a bash session in the currently running container for the app:
+在当前正在运行的应用容器中启动 bash 会话：
 
 ```bash
 kamal app exec -i --reuse bash
 ```
 
-Start a Rails console in a new container made from the most recent app image:
+在由最新应用镜像创建的新容器中启动 Rails 控制台：
 
 ```bash
 kamal app exec -i 'bin/rails console'
 ```
 
-## [Get unmodified output](#get-unmodified-output)
+## [获取未修改的输出](#get-unmodified-output)
 
-By default `exec` runs the command's output through SSHKit's capture, which strips leading and trailing whitespace — including trailing newlines and NUL bytes. That corrupts binary output such as a `tar` stream. Pass `--raw` to emit stdout exactly as produced. It also lowers the logging level so only the command's output is written.
+默认情况下，`exec` 会通过 SSHKit 的 capture 处理命令输出，会去掉首尾空白——包括尾部换行和 NUL 字节。这会破坏 `tar` 流等二进制输出。传入 `--raw` 可原样输出 stdout。它还会降低日志级别，使只写出命令本身的输出。
 
 ```bash
 kamal app exec --raw 'tar c -C /rails/storage .' > storage.tar
 ```
 
-`--raw` can't be combined with `--interactive` or `--detach`.
+`--raw` 不能与 `--interactive` 或 `--detach` 同时使用。

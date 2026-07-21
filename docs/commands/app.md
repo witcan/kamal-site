@@ -4,46 +4,45 @@ title: App
 
 # kamal app
 
-Run `kamal app` to manage your running apps.
+运行 `kamal app` 可管理正在运行的应用。
 
-To deploy new versions of the app, see `kamal deploy` and `kamal rollback`.
+要部署新版本应用，请参见 `kamal deploy` 和 `kamal rollback`。
 
-You can use `kamal app exec` to [run commands on servers](../running-commands-on-servers).
+你可以使用 `kamal app exec` [在服务器上运行命令](../running-commands-on-servers)。
 
 ```bash
 $ kamal app
 Commands:
-  kamal app boot              # Boot app on servers (or reboot app if already running)
-  kamal app containers        # Show app containers on servers
-  kamal app details           # Show details about app containers
-  kamal app exec [CMD...]     # Execute a custom command on servers within the app container (use --help to show options)
-  kamal app help [COMMAND]    # Describe subcommands or one specific subcommand
-  kamal app images            # Show app images on servers
-  kamal app live              # Set the app to live mode
-  kamal app logs              # Show log lines from app on servers (use --help to show options)
-  kamal app maintenance       # Set the app to maintenance mode
-  kamal app remove            # Remove app containers and images from servers
-  kamal app stale_containers  # Detect app stale containers
-  kamal app start             # Start existing app container on servers
-  kamal app stop              # Stop app container on servers
-  kamal app version           # Show app version currently running on servers
+  kamal app boot              # 在服务器上启动应用（若已在运行则重启）
+  kamal app containers        # 显示服务器上的应用容器
+  kamal app details           # 显示应用容器的详情
+  kamal app exec [CMD...]     # 在应用容器内执行自定义命令（--help 查看选项）
+  kamal app help [COMMAND]    # 说明子命令或某个具体子命令
+  kamal app images            # 显示服务器上的应用镜像
+  kamal app live              # 将应用设为上线模式
+  kamal app logs              # 显示服务器上应用的日志（--help 查看选项）
+  kamal app maintenance       # 将应用设为维护模式
+  kamal app remove            # 从服务器移除应用容器和镜像
+  kamal app stale_containers  # 检测过期的应用容器
+  kamal app start             # 启动服务器上已有的应用容器
+  kamal app stop              # 停止服务器上的应用容器
+  kamal app version           # 显示服务器上当前运行的应用版本
 ```
 
-## [Maintenance Mode](#maintenance-mode)
+## [维护模式](#maintenance-mode)
 
-You can set your application to maintenance mode, by running `kamal app maintenance`.
+运行 `kamal app maintenance` 可将应用设为维护模式。
 
-When in maintenance mode, kamal-proxy will intercept requests and return a 503 responses.
+处于维护模式时，kamal-proxy 会拦截请求并返回 503 响应。
 
-There is a built in HTML template for the error page. You can customise the error message
-via the --message option:
+内置了错误页的 HTML 模板。可通过 --message 选项自定义错误信息：
 
 ```shell
 $ kamal app maintenance --message "Scheduled maintenance window from ..."
 ```
 
-You can also provide custom error pages by setting the [`error_pages_path`](../../configuration/overview#error-pages) configuration option.
+也可以通过 [`error_pages_path`](../../configuration/overview#error-pages) 配置选项提供自定义错误页。
 
-## [Live Mode](#live-mode)
+## [上线模式](#live-mode)
 
-You can set your application back to live mode, by running `kamal app live`.
+运行 `kamal app live` 可将应用恢复为上线模式。

@@ -4,7 +4,7 @@ title: Details
 
 # kamal details
 
-Shows details of all your containers.
+显示所有容器的详细信息。
 
 ```bash
 $ kamal details -q

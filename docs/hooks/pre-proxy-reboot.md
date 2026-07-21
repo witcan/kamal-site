@@ -2,12 +2,12 @@
 title: pre-proxy-reboot
 ---
 
-# Hooks: pre-proxy-reboot
+# 钩子：pre-proxy-reboot
 
-Run before rebooting the kamal-proxy container when you call `kamal proxy reboot`.
+在调用 `kamal proxy reboot` 重启 kamal-proxy 容器之前运行。
 
-If you have the hook disabling the current server in an external load balancer and use the `--rolling` flag, you can use this for a zero-downtime proxy reboot.
+若钩子会在外部负载均衡器中禁用当前服务器，并配合 `--rolling` 标志，可实现代理的零停机重启。
 
-With a rolling reboot, the hook will be called once for each server, with `KAMAL_HOSTS` containing the current server. With a non-rolling reboot, it will be called just once.
+滚动重启时，该钩子会对每台服务器调用一次，`KAMAL_HOSTS` 包含当前服务器。非滚动重启时只调用一次。
 
-Use the [post-proxy-reboot](../post-proxy-reboot) hook to re-enable the server.
+使用 [post-proxy-reboot](../post-proxy-reboot) 钩子重新启用服务器。

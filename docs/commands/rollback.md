@@ -4,9 +4,9 @@ title: kamal rollback
 
 # kamal rollback
 
-You can rollback a deployment with `kamal rollback`.
+可用 `kamal rollback` 回滚一次部署。
 
-If you've discovered a bad deploy, you can quickly rollback to a previous image. You can see what old containers are available for rollback by running `kamal app containers -q`. It'll give you a presentation similar to `kamal app details`, but include all the old containers as well.
+若发现某次部署有问题，可以快速回滚到先前的镜像。运行 `kamal app containers -q` 可查看可用于回滚的旧容器。输出形式与 `kamal app details` 类似，但会包含所有旧容器。
 
 ```
 App Host: 192.168.0.1
@@ -20,8 +20,8 @@ badb1aa51db4   registry.digitalocean.com/user/app:6ef8a6a84c525b123c5245345a8483
 6f170d1172ae   registry.digitalocean.com/user/app:e5d9d7c2b898289dfbc5f7f1334140d984eedae4   "/rails/bin/docker-e..."   31 minutes ago   Exited (1) 27 minutes ago              chat-e5d9d7c2b898289dfbc5f7f1334140d984eedae4
 ```
 
-From the example above, we can see that `e5d9d7c2b898289dfbc5f7f1334140d984eedae4` was the last version, so it's available as a rollback target. We can perform this rollback by running `kamal rollback e5d9d7c2b898289dfbc5f7f1334140d984eedae4`.
+在上面的例子中，`e5d9d7c2b898289dfbc5f7f1334140d984eedae4` 是上一个版本，因此可作为回滚目标。运行 `kamal rollback e5d9d7c2b898289dfbc5f7f1334140d984eedae4` 即可执行回滚。
 
-That'll stop `6ef8a6a84c525b123c5245345a8483f86d05a123` and then start a new container running the same image as `e5d9d7c2b898289dfbc5f7f1334140d984eedae4`. Nothing needs to be downloaded from the registry.
+这会停止 `6ef8a6a84c525b123c5245345a8483f86d05a123`，然后启动一个使用与 `e5d9d7c2b898289dfbc5f7f1334140d984eedae4` 相同镜像的新容器。无需从镜像仓库重新下载。
 
-**Note:** By default, old containers are pruned after 3 days when you run `kamal deploy`.
+**注意：** 默认情况下，运行 `kamal deploy` 时会清理 3 天前的旧容器。
