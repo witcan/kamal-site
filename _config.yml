@@ -8,6 +8,13 @@ markdown: kramdown
 highlighter: rouge
 permalink: pretty
 
+# Multi-language support
+languages:
+  - en
+  - zh
+
+default_lang: en
+
 plugins:
   - jekyll-redirect-from
 
@@ -33,6 +40,14 @@ defaults:
     values:
       layout: docs
       search: true
+      lang: en
+  - scope:
+      path: docs/zh
+      type: pages
+    values:
+      layout: docs
+      search: true
+      lang: zh
   - scope:
       path: v1/docs
       type: pages
@@ -40,6 +55,7 @@ defaults:
       layout: docs
       search: true
       version: v1
+      lang: en
 
 redirect_from:
   json: false
