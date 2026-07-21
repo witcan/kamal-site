@@ -1,12 +1,13 @@
 ---
-title: "Deploy web apps anywhere"
-description: "From bare metal to cloud VMs using Docker, deploy web apps anywhere with zero downtime."
+title: "在任意地方部署 Web 应用"
+description: "从裸金属服务器到云虚拟机，使用 Docker 零停机部署 Web 应用。"
+lang: zh
 ---
 
 <div class="headline">
   <header>
-    <h1>Deploy web apps anywhere.</h1>
-    <p>From bare metal to cloud VMs.</p>
+    <h1>在任意地方部署 Web 应用。</h1>
+    <p>从裸金属服务器到云虚拟机。</p>
   </header>
 </div>
 
@@ -15,16 +16,16 @@ description: "From bare metal to cloud VMs using Docker, deploy web apps anywher
     <video data-event="Kamal Demo" poster="https://videos.37signals.com/kamal/kamal-demo.webp" src="https://videos.37signals.com/kamal/kamal-demo.mp4" preload="metadata" crossorigin playsinline>
       <track src="https://videos.37signals.com/kamal/kamal-demo-en.vtt" kind="captions" label="English" srclang="en" default>
     </video>
-    <button aria-label="Play video about Kamal"></button>
+    <button aria-label="播放 Kamal 介绍视频"></button>
   </div>
 </div>
 
 <div class="intro">
   <div class="intro__content">
-    <p>Kamal offers zero-downtime deploys, rolling restarts, asset bridging, remote builds, accessory service management, and everything else you need to deploy and manage your web app in production with Docker. Originally built for Rails apps, Kamal will work with any type of web app that can be containerized.</p>
+    <p>Kamal 提供零停机部署、滚动重启、静态资源桥接、远程构建、附属服务管理等能力，帮你用 Docker 在生产环境部署与管理 Web 应用。最初为 Rails 应用打造，但适用于任何可容器化的 Web 应用。</p>
     <ul>
-      <li><a href="{{ '/docs/' | absolute_url }}" class="button" aria-label="Read the docs">Read the docs</a></li>
-      <li><a href="https://github.com/basecamp/kamal" class="button" aria-label="View the source">View the source</a></li>
+      <li><a href="{{ '/docs/zh/' | absolute_url }}" class="button" aria-label="阅读文档">阅读文档</a></li>
+      <li><a href="https://github.com/basecamp/kamal" class="button" aria-label="查看源码">查看源码</a></li>
     </ul>
   </div>
 </div>
@@ -32,27 +33,27 @@ description: "From bare metal to cloud VMs using Docker, deploy web apps anywher
 <div class="page">
   <div class="page__content">
     <article>
-      <h2>Vision</h2>
-      <p>In the past decade+, there’s been an explosion in commercial offerings that make deploying web apps easier. Heroku kicked it off with an incredible offering that stayed ahead of the competition seemingly forever. These days we have excellent alternatives like Fly.io and Render. And hosted Kubernetes is making things easier too on AWS, GCP, Digital Ocean, and elsewhere. But these are all offerings that have you renting computers in the cloud at a premium. If you want to run on your own hardware, or even just have a clear migration path to do so in the future, you need to carefully consider how locked in you get to these commercial platforms. Preferably before the bills swallow your business whole!</p>
-      <p>Kamal seeks to bring the advance in ergonomics pioneered by these commercial offerings to deploying web apps anywhere. Whether that’s low-cost cloud options without the managed-service markup from the likes of Digital Ocean, Hetzner, OVH, etc, or it’s your own colocated bare metal. To Kamal, it’s all the same. Feed the config file a list of IP addresses with vanilla Ubuntu servers that have seen no prep beyond an added SSH key, and you’ll be running in literally minutes.</p>
-      <p>This approach gives you enormous portability. You can have your web app deployed on several clouds at ease like this. Or you can buy the baseline with your own hardware, then deploy to a cloud before a big seasonal spike to get more capacity. When you’re not locked into a single provider from a tooling perspective, there are a lot of compelling options available.</p>
-      <p>Ultimately, Kamal is meant to compress the complexity of going to production using open source tooling that isn’t tied to any commercial offering. Not to zero, mind you. You’re probably still better off with a fully managed service if basic Linux or Docker is still difficult, but as soon as those concepts are familiar, you’ll be ready to go with Kamal.</p>
+      <h2>愿景</h2>
+      <p>过去十多年，让 Web 应用部署更轻松的商业服务爆发式增长。Heroku 以卓越体验开了先河，并长期领先。如今我们有 Fly.io、Render 等优秀替代，托管 Kubernetes 也在 AWS、GCP、Digital Ocean 等地让事情更简单。但这些服务本质上是让你在云端以溢价租用算力。如果你想在自有硬件上运行，或只是希望将来能顺利迁移，就需要仔细权衡对商业平台的锁定程度——最好在账单把生意吞掉之前想清楚。</p>
+      <p>Kamal 希望把这些商业服务所开创的易用性，带到「在任意地方部署 Web 应用」。无论是 Digital Ocean、Hetzner、OVH 等没有托管溢价的低成本云，还是自建机房里的裸金属，对 Kamal 来说都一样。在配置文件里填入一组 IP，机器只需装好 Ubuntu 并添加 SSH 公钥，几分钟内就能跑起来。</p>
+      <p>这种方式带来极大的可移植性。你可以轻松把应用部署到多个云上，也可以用自有硬件打底，在季节性高峰前扩到云端再缩回来。工具链不绑定单一厂商时，选择空间会大得多。</p>
+      <p>归根结底，Kamal 要用不受商业平台绑定的开源工具，压缩上线生产的复杂度。不是压到零——如果基础 Linux 或 Docker 对你仍很吃力，托管服务可能更合适——但一旦熟悉这些概念，就可以用 Kamal 开干。</p>
 
       <hr class="ornament">
-      <h3>Why not just run Capistrano, Kubernetes or Docker Swarm?</h3>
-      <p>Kamal basically is Capistrano for Containers, without the need to carefully prepare servers in advance. No need to ensure that the servers have just the right version of Ruby or other dependencies you need. That all lives in the Docker image now. You can boot a brand new Ubuntu (or whatever) server, add it to the list of servers in Kamal, and it’ll be auto-provisioned with Docker, and run right away. Docker’s layer caching also speeds up deployments with less mucking about on the server. And the images built for Kamal can be used for CI or later introspection.</p>
-      <p>Kubernetes is a beast. Running it yourself on your own hardware is not for the faint of heart. It’s a fine option if you want to run on someone else’s platform, either transparently <a href="https://thenewstack.io/render-cloud-deployment-with-less-engineering/">like Render</a> or explicitly on AWS/GCP, but if you’d like the freedom to move between cloud and your own hardware, or even mix the two, Kamal is much simpler. You can see everything that’s going on, it’s just basic Docker commands being called.</p>
-      <p>Docker Swarm is much simpler than Kubernetes, but it’s still built on the same declarative model that uses state reconciliation. Kamal is intentionally designed around imperative commands, like Capistrano.</p>
-      <p>Ultimately, there are a myriad of ways to deploy web apps, but this is the toolkit we’ve used at <a href="https://37signals.com">37signals</a> to bring <a href="https://www.hey.com">HEY</a> and all our other formerly cloud-hosted applications <a href="https://world.hey.com/dhh/we-have-left-the-cloud-251760fb">home to our own hardware</a> — without losing the advantages of modern containerization tooling.</p>
+      <h3>为什么不用 Capistrano、Kubernetes 或 Docker Swarm？</h3>
+      <p>Kamal 本质上就是面向容器的 Capistrano，无需事先精心准备服务器。不必确保机器装了正确版本的 Ruby 或其他依赖——这些都在 Docker 镜像里。你可以启动一台全新的 Ubuntu（或其它发行版）服务器，加入 Kamal 的服务器列表，它会自动安装 Docker 并立刻运行。Docker 的分层缓存也让部署更快，服务器上动手更少。为 Kamal 构建的镜像还可用于 CI 或事后排查。</p>
+      <p>Kubernetes 体量庞大。在自有硬件上自建并不适合所有人。如果你想跑在别人的平台上——无论是 <a href="https://thenewstack.io/render-cloud-deployment-with-less-engineering/">像 Render 那样透明托管</a>，还是显式使用 AWS/GCP——它是不错的选择；但若你想在云与自有硬件之间自由切换，甚至混合使用，Kamal 简单得多。一切都一目了然，调用的就是基础 Docker 命令。</p>
+      <p>Docker Swarm 比 Kubernetes 简单，但仍建立在基于状态协调的声明式模型上。Kamal 有意采用类似 Capistrano 的命令式设计。</p>
+      <p>部署 Web 应用的方式有无数种，但这是我们在 <a href="https://37signals.com">37signals</a> 用来把 <a href="https://www.hey.com">HEY</a> 以及其它曾托管在云上的应用<a href="https://world.hey.com/dhh/we-have-left-the-cloud-251760fb">迁回自有硬件</a> 的工具箱——同时不放弃现代容器化带来的优势。</p>
 
       <hr class="ornament">
-      <h3>Name</h3>
-      <p>Kamal is named after <a href="https://exploration.marinersmuseum.org/object/kamal/">the ancient Arab navigational tool</a> used by sailors to keep course by determining their latitude via the Pole Star. (Kamal was formerly known as MRSK).</p>
+      <h3>名称由来</h3>
+      <p>Kamal 得名于<a href="https://exploration.marinersmuseum.org/object/kamal/">古代阿拉伯航海工具</a>：水手借北极星测定纬度以保持航向。（Kamal 曾用名 MRSK。）</p>
 
       <figure>
         <picture>
           <source type="image/webp" srcset="{{ '/assets/images/kamal.webp' | absolute_url }}">
-          <img src="{{ '/assets/images/kamal.png' | absolute_url }}" alt="A person uses a Kamal, an ancient Arab navigational tool, to measure the angle between the horizon and the Pole Star at night by the sea.">
+          <img src="{{ '/assets/images/kamal.png' | absolute_url }}" alt="一个人在海边夜间使用 Kamal（古代阿拉伯航海工具）测量地平线与北极星之间的夹角。">
         </picture>
       </figure>
     </article>

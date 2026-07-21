@@ -24,7 +24,7 @@ function ready() {
 
     } else {
 
-      appendString = '<div class="search-result"><p>No results found.</p></div>';
+      appendString = '<div class="search-result"><p>未找到相关结果。</p></div>';
 
     }
 

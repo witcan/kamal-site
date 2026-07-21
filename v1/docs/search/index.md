@@ -1,10 +1,10 @@
 ---
-title: Search Results
+title: 搜索结果
 nav: false
 search: false
 ---
 
-<h1 id="search-query">Search results for <mark></mark></h1>
+<h1 id="search-query">搜索结果：<mark></mark></h1>
 
 <div id="search-results"></div>
 

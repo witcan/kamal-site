@@ -1,5 +1,5 @@
 title: "Kamal"
-description: "Deploy web apps anywhere"
+description: "在任意地方部署 Web 应用"
 url: https://kamal-deploy.org
 image: /assets/images/opengraph.png
 github: basecamp
@@ -13,7 +13,7 @@ languages:
   - en
   - zh
 
-default_lang: en
+default_lang: zh
 
 plugins:
   - jekyll-redirect-from

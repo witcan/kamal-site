@@ -1,18 +1,18 @@
 ---
-title: Installation
+title: 安装
 ---
 
-# Installation
+# 安装
 
-If you have a Ruby environment available, you can install Kamal globally with:
+如果你已有 Ruby 环境，可以全局安装 Kamal：
 
 ```sh
 gem install kamal
 ```
 
-If you do not have Ruby installed you can [run Kamal in a docker container](dockerized), though this has some limitations.
+如果尚未安装 Ruby，也可以[在 Docker 容器中运行 Kamal](dockerized)，不过会有一些限制。
 
-Then, inside your app directory, run `kamal init`. Now edit the new file `config/deploy.yml`. It could look as simple as this:
+然后在应用目录中运行 `kamal init`，再编辑新生成的 `config/deploy.yml`。内容可以非常简洁，例如：
 
 ```yaml
 service: hey
@@ -31,31 +31,31 @@ env:
     - RAILS_MASTER_KEY
 ```
 
-Set your `KAMAL_REGISTRY_PASSWORD` in your environment and edit your `.kamal/secrets` file to read it (and your `RAILS_MASTER_KEY` for production with a Rails app).
+在环境中设置 `KAMAL_REGISTRY_PASSWORD`，并编辑 `.kamal/secrets` 文件以读取它（若是 Rails 应用的生产环境，还需读取 `RAILS_MASTER_KEY`）：
 
 ```yaml
 KAMAL_REGISTRY_PASSWORD=$KAMAL_REGISTRY_PASSWORD
 RAILS_MASTER_KEY=$(cat config/master.key)
 ```
 
-Now you're ready to deploy to the servers:
+现在可以部署到服务器了：
 
 ```
 kamal setup
 ```
 
-This will:
+该命令会：
 
-1. Connect to the servers over SSH (using root by default, authenticated by your SSH key).
-2. Install Docker on any server that might be missing it (using get.docker.com): root access is needed via SSH for this.
-3. Log into the registry both locally and remotely.
-4. Build the image using the standard Dockerfile in the root of the application.
-5. Push the image to the registry.
-6. Pull the image from the registry onto the servers.
-7. Ensure kamal-proxy is running and accepting traffic on ports 80 and 443.
-8. Start a new container with the version of the app that matches the current Git version hash.
-9. Tell kamal-proxy to route traffic to the new container once it is responding with `200 OK` to `GET /up`.
-10. Stop the old container running the previous version of the app.
-11. Prune unused images and stopped containers to ensure servers don't fill up.
+1. 通过 SSH 连接服务器（默认使用 root，由你的 SSH 密钥认证）。
+2. 在尚未安装 Docker 的服务器上安装 Docker（使用 get.docker.com）：需要 root 的 SSH 权限。
+3. 在本地和远程登录镜像仓库。
+4. 使用应用根目录的标准 Dockerfile 构建镜像。
+5. 将镜像推送到镜像仓库。
+6. 从镜像仓库将镜像拉取到服务器。
+7. 确保 kamal-proxy 已运行，并在 80、443 端口接受流量。
+8. 用与当前 Git 版本哈希匹配的应用版本启动新容器。
+9. 当新容器对 `GET /up` 返回 `200 OK` 后，让 kamal-proxy 将流量路由到新容器。
+10. 停止运行旧版本应用的旧容器。
+11. 清理未使用的镜像和已停止的容器，避免服务器磁盘被占满。
 
-Voila! All the servers are now serving the app on port 80. If you're just running a single server, you're ready to go. If you're running multiple servers, you need to put a load balancer in front of them. For subsequent deploys, or if your servers already have Docker installed, you can just run `kamal deploy`.
+完成！所有服务器现在都在 80 端口提供应用服务。如果只有一台服务器，已经可以直接使用。如果有多台服务器，需要在前面放一个负载均衡器。后续部署，或服务器上已安装 Docker 时，直接运行 `kamal deploy` 即可。

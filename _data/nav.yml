@@ -1,22 +1,24 @@
-- title: "Documentation"
+- title: "文档"
   url: /docs/
+  key: documentation
   options:
-  - title: "Version 2.12.0"
+  - title: "版本 2.12.0"
     url: /docs/
-  - title: "Version 1.9.2"
+  - title: "版本 1.9.2"
     url: /v1/docs/
 
 - title: "中文文档"
   url: /docs/zh/
+  key: documentation_zh
   options:
   - title: "版本 2.12.0"
     url: /docs/zh/
 
-- title: "Source code"
+- title: "源码"
   url: https://github.com/basecamp/kamal
   external: true
 
-- title: "Help"
+- title: "帮助"
   url: https://github.com/basecamp/kamal/discussions
   external: true
 

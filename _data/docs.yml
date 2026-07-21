@@ -1,50 +1,50 @@
-- title: "Installation"
+- title: "安装"
   url: /docs/installation/
 
-- title: "Configuration"
+- title: "配置"
   url: /docs/configuration/
   index: false
   sections:
-    - title: "Overview"
+    - title: "概览"
       url: /docs/configuration/overview/
-    - title: "Accessories"
+    - title: "附属服务"
       url: /docs/configuration/accessories/
-    - title: "Aliases"
+    - title: "别名"
       url: /docs/configuration/aliases/
-    - title: "Anchors"
+    - title: "锚点"
       url: /docs/configuration/anchors/
-    - title: "Booting"
+    - title: "启动"
       url: /docs/configuration/booting/
-    - title: "Builders"
+    - title: "构建器"
       url: /docs/configuration/builders/
-    - title: "Builder examples"
+    - title: "构建器示例"
       url: /docs/configuration/builder-examples/
-    - title: "Cron"
+    - title: "定时任务"
       url: /docs/configuration/cron/
-    - title: "Docker registry"
+    - title: "Docker 镜像仓库"
       url: /docs/configuration/docker-registry/
-    - title: "Environment variables"
+    - title: "环境变量"
       url: /docs/configuration/environment-variables/
-    - title: "Logging"
+    - title: "日志"
       url: /docs/configuration/logging/
-    - title: "Output"
+    - title: "输出"
       url: /docs/configuration/output/
-    - title: "Proxy"
+    - title: "代理"
       url: /docs/configuration/proxy/
-    - title: "Roles"
+    - title: "角色"
       url: /docs/configuration/roles/
-    - title: "Servers"
+    - title: "服务器"
       url: /docs/configuration/servers/
     - title: "SSH"
       url: /docs/configuration/ssh/
     - title: "SSHKit"
       url: /docs/configuration/sshkit/
 
-- title: "Commands"
+- title: "命令"
   url: /docs/commands/
   index: false
   sections:
-    - title: "View all commands"
+    - title: "查看全部命令"
       url: /docs/commands/view-all-commands/
     - title: "kamal accessory"
       url: /docs/commands/accessory/
@@ -90,14 +90,14 @@
       url: /docs/commands/upgrade/
     - title: "kamal version"
       url: /docs/commands/version/
-    - title: "Running commands on servers"
+    - title: "在服务器上运行命令"
       url: /docs/commands/running-commands-on-servers/
 
-- title: "Hooks"
+- title: "钩子"
   url: /docs/hooks/
   index: false
   sections:
-    - title: "Overview"
+    - title: "概览"
       url: /docs/hooks/overview/
     - title: "docker-setup"
       url: /docs/hooks/docker-setup/
@@ -118,19 +118,19 @@
     - title: "post-proxy-reboot"
       url: /docs/hooks/post-proxy-reboot/
 
-- title: "Upgrade Guide"
+- title: "升级指南"
   url: /docs/upgrading/
   index: false
   sections:
-    - title: "Overview"
+    - title: "概览"
       url: /docs/upgrading/overview/
-    - title: "Proxy changes"
+    - title: "代理变更"
       url: /docs/upgrading/proxy-changes/
-    - title: "Network changes"
+    - title: "网络变更"
       url: /docs/upgrading/network-changes/
-    - title: "Configuration changes"
+    - title: "配置变更"
       url: /docs/upgrading/configuration-changes/
-    - title: "Secrets changes"
+    - title: "密钥变更"
       url: /docs/upgrading/secrets-changes/
-    - title: "Continuing to use Traefik"
+    - title: "继续使用 Traefik"
       url: /docs/upgrading/continuing-to-use-traefik/

@@ -1,33 +1,33 @@
-- title: "Installation"
+- title: "安装"
   url: /v1/docs/installation/
 
-- title: "Configuration"
+- title: "配置"
   url: /v1/docs/configuration/
   index: false
   sections:
-    - title: "Overview"
+    - title: "概览"
       url: /v1/docs/configuration/overview/
-    - title: "Accessories"
+    - title: "附属服务"
       url: /v1/docs/configuration/accessories/
-    - title: "Booting"
+    - title: "启动"
       url: /v1/docs/configuration/booting/
-    - title: "Builders"
+    - title: "构建器"
       url: /v1/docs/configuration/builders/
-    - title: "Builder examples"
+    - title: "构建器示例"
       url: /v1/docs/configuration/builder-examples/
-    - title: "Cron"
+    - title: "定时任务"
       url: /v1/docs/configuration/cron/
-    - title: "Docker registry"
+    - title: "Docker 镜像仓库"
       url: /v1/docs/configuration/docker-registry/
-    - title: "Environment variables"
+    - title: "环境变量"
       url: /v1/docs/configuration/environment-variables/
-    - title: "Healthchecks"
+    - title: "健康检查"
       url: /v1/docs/configuration/healthchecks/
-    - title: "Logging"
+    - title: "日志"
       url: /v1/docs/configuration/logging/
-    - title: "Roles"
+    - title: "角色"
       url: /v1/docs/configuration/roles/
-    - title: "Servers"
+    - title: "服务器"
       url: /v1/docs/configuration/servers/
     - title: "SSH"
       url: /v1/docs/configuration/ssh/
@@ -36,11 +36,11 @@
     - title: "Traefik"
       url: /v1/docs/configuration/traefik/
 
-- title: "Commands"
+- title: "命令"
   url: /v1/docs/commands/
   index: false
   sections:
-    - title: "View all commands"
+    - title: "查看全部命令"
       url: /v1/docs/commands/view-all-commands/
     - title: "kamal accessory"
       url: /v1/docs/commands/accessory/
@@ -84,14 +84,14 @@
       url: /v1/docs/commands/traefik/
     - title: "kamal version"
       url: /v1/docs/commands/version/
-    - title: "Running commands on servers"
+    - title: "在服务器上运行命令"
       url: /v1/docs/commands/running-commands-on-servers/
 
-- title: "Hooks"
+- title: "钩子"
   url: /v1/docs/hooks/
   index: false
   sections:
-    - title: "Overview"
+    - title: "概览"
       url: /v1/docs/hooks/overview/
     - title: "docker-setup"
       url: /v1/docs/hooks/docker-setup/

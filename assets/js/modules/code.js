@@ -7,7 +7,7 @@ function ready() {
     var button = document.createElement('button');
 
     button.className = 'copy';
-    button.innerText = 'Copy';
+    button.innerText = '复制';
 
     highlight.append(button);
 
@@ -19,13 +19,13 @@ function ready() {
 
       window.navigator.clipboard.writeText(code);
 
-      button.innerText = 'Copied';
+      button.innerText = '已复制';
 
       button.blur();
 
       setTimeout(function() {
 
-        button.innerText = 'Copy';
+        button.innerText = '复制';
 
       }, 1000);
 
